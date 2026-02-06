@@ -158,18 +158,23 @@
   margin-bottom: 2rem;
   font-size: 2rem;
 }
+.contentRightH2 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  text-align: right;
+}
 
 /* IMAGE GRID */
 .image-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 /* CARD (LINK) */
 .card {
-  width: 300px;
+  width: 30%;
   text-decoration: none;
   color: inherit;
   background: transparent;
