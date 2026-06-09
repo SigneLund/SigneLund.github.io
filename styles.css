@@ -1,4 +1,4 @@
-    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+       @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
     header h1 {
     font-family: var(--font-display);
 
@@ -21,7 +21,6 @@
 
     }
     h2 {
-    
     font-family: var(--font-display);
 
     }
@@ -157,7 +156,7 @@
 
 .content h2 {
   margin-bottom: 2rem;
-  font-size: 4rem;
+  font-size: 2rem;
 }
 .contentRightH2 {
   margin-bottom: 2rem;
@@ -203,14 +202,12 @@
 }
 
 button {
-  height: 50px;
   padding: 0.75rem 2rem;
   border: none;
   background: #3a6562;
-  border-radius: 40px;
+  border-radius: 20px;
   color: #ffffff;
   cursor: pointer;
-  font-size: 18px;
   font-weight: bold;
 }
 
@@ -256,41 +253,15 @@ main {
   margin-bottom: 3rem;
   flex-wrap: wrap; /* Allows stacking on small screens */
 }
-.rowPhoto {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  flex-wrap: wrap; /* Allows stacking on small screens */
-}
 
 /* Columns */
 .column {
   flex: 1;
   min-width: 300px; /* Prevents columns from getting too narrow */
 }
-.columnPhoto {
-  flex: 1;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* vertical centering */
-}
-.columnPhoto p {
-  max-width: 80%;
-  padding-left: 20px;
-}
-.columnPhoto h2 {
-  max-width: 80%;
-  padding-left: 20px;
-}
 
 /* Images in column */
 .column img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.columnPhoto img {
   width: 100%;
   height: auto;
   display: block;
@@ -358,51 +329,4 @@ main {
    margin-left: 15%;
    font-size: 2.5rem;
 }
-}
-
-.divider {
-  background-color: #5a756d;
-  padding: 4rem 2rem;
-  overflow-x: hidden; /* section stays clean */
-}
-
-.photo-row {
-  max-width: 1200px;
-  margin: 0 auto;
-
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(300px, 1fr); /* 👈 STOP shrinking */
-  gap: 1.5rem;
-}
-
-.photo-row img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-}
-
-/* Scroll + edge bleed */
-@media (max-width: 1024px) {
-  .photo-row {
-    overflow-x: auto;
-    max-width: none;
-
-    /* bleed past section padding */
-    margin-left: -2rem;
-    margin-right: -2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-
-    padding-bottom: 1rem;
-  }
-
-  .photo-row::-webkit-scrollbar {
-    height: 8px;
-  }
-
-  .photo-row::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-  }
 }
