@@ -10,3 +10,4 @@ burger.addEventListener('click', () => {
     burger.style.color = ''; // resets to original color
   }
 });
+
