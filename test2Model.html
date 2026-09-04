@@ -1,72 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet" />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <title>Product Technology</title>
 
-    <title>3D Model</title>
+  <style>
+    html { scroll-behavior: smooth; }
+/* Hide scrollbar (keeps scrolling functional) */
+html, body {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE/old Edge */
+}
 
-    <!-- Model Viewer -->
-    <script
-        type="module"
-        src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
-    </script>
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;              /* Chrome/Safari/Opera */
+}
+    .model-section {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background: #fff;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    .model-section model-viewer {
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
 
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: white;
-        }
+    .model-text {
+      position: absolute;
+      top: 50%;
+      z-index: 10;
+      color: black;
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(2rem, 4vw, 4rem);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      max-width: 420px;
+      line-height: 1.1;
+    }
 
-        model-viewer {
-            display: block;
-            width: 100vw;
-            height: 100vh;
-            background: white;
-        }
-    </style>
+    .model-text.visible { opacity: 1; }
+
+    .model-text.right {
+      right: 8%;
+      left: auto;
+      transform: translateY(-50%);
+      text-align: left;
+    }
+
+    .model-text.left {
+      left: 8%;
+      right: auto;
+      transform: translateY(-50%);
+      text-align: left;
+    }
+
+    .after-model {
+      min-height: 100vh;
+      padding: 8rem 10%;
+      background: #a3bdc7;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+
+    .after-model h2 {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .after-model p {
+      max-width: 850px;
+      line-height: 1.7;
+      font-size: 1.1rem;
+      color: #1f1f1f;
+    }
+  </style>
 </head>
+<body style="background:#a3bdc7;">
+  <nav>
+    <div class="logo"></div>
+    <div class="burger" id="burger">☰</div>
+    <ul id="nav-links">
+      <li><a class="page-title" href="index.html">Home</a></li>
+      <li><a class="page-title" href="interiorDesign.html">Interior design</a></li>
+      <li><a class="page-title" href="productTechnology.html">Product technology</a></li>
+      <li><a class="page-title" href="photography.html">Photography</a></li>
+      <li><a class="page-title" href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
-<body>
+  <main style="background:#a3bdc7;max-width:100%;padding:0;">
+    <section style="padding:100px;">
+      <header style="background:#a3bdc7;"><h1>Product Technology</h1></header>
 
-    <model-viewer
+      <div class="row">
+        <div class="column">
+          <h2>Lorem Ipsum Dolor</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>Pulvinar vivamus fringilla lacus nec metus bibendum egestas.</p>
+        </div>
+        <div class="column">
+          <h2>Lorem Ipsum Dolor</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>Iaculis massa nisl malesuada lacinia integer nunc posuere.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <h2>Lorem Ipsum Dolor</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>Ut hendrerit semper vel class aptent taciti sociosqu.</p>
+        </div>
+        <div class="column" style="height:500px;">
+          <model-viewer
+            id="mainModel"
+            src="models/ass_2.glb"
+            camera-controls
+            auto-rotate
+            rotation-per-second="2deg"
+            camera-orbit="135deg 75deg 105%"
+            shadow-intensity="1.5"
+            exposure="0.4"
+            ar
+            interaction-prompt="none"
+            alt="3D model">
+          </model-viewer>
+        </div>
+      </div>
+    </section>
+
+    <section class="model-section" id="modelSection">
+      <model-viewer
         id="model"
-        src="models/ASS-CASE1.glb"
+        src="models/ass_2.glb"
         camera-orbit="0deg 75deg 105%"
-        field-of-view="30deg">
-    </model-viewer>
+        field-of-view="30deg"
+        exposure="0.1"
+        interaction-prompt="none">
+      </model-viewer>
+      <div id="modelText" class="model-text"></div>
+    </section>
 
-    <script>
+    <section class="after-model">
+      <h2>Innovation Beyond Form</h2>
+      <p>Every curve, surface, and material is engineered to merge aesthetics with function.</p>
+      <p>From first concept to final finish, each detail is shaped with intention.</p>
+    </section>
+  </main>
+  <script src="js.js"></script>
+  <script>
+    const modelSection = document.getElementById("modelSection");
+    const model = document.getElementById("model");
+    const modelText = document.getElementById("modelText");
 
-        const model = document.getElementById("model");
+    // 4 stages, each takes 5 scroll steps
+    let stage = 0;         // 0..4
+    let stageProgress = 0; // 0..4 inside stage
 
-        let rotation = 0;
+    const SCROLLS_PER_STAGE = 5;
+    const ROTATION_PER_SCROLL = 18; // 20 * 18 = 360
 
-        window.addEventListener("wheel", (event) => {
+    // pin state
+    let isPinned = false;
+    let lockY = 0;
+    let modelActive = false;
+    let repinBlockedUntil = 0;
 
-            if (event.deltaY > 0) {
-                rotation += 10;
-            } else {
-                rotation -= 10;
-            }
+    // smooth model rotation
+    let currentRotation = 0;
+    let targetRotation = 0;
+    let rafId = null;
 
-            model.cameraOrbit =
-                `${rotation}deg 75deg 105%`;
+    // wheel momentum handling
+    let wheelAccumulator = 0;
+    const DELTA_STEP = 70;
 
-        });
+    function sectionTopY() {
+      return modelSection.getBoundingClientRect().top + window.scrollY;
+    }
 
-    </script>
+    function pinNow() {
+      if (Date.now() < repinBlockedUntil) return;
+      lockY = sectionTopY();
+      window.scrollTo({ top: lockY, behavior: "auto" });
+      document.body.style.overflow = "hidden";
+      isPinned = true;
+      wheelAccumulator = 0;
+    }
 
+    function unpin(direction) {
+      document.body.style.overflow = "";
+      isPinned = false;
+      wheelAccumulator = 0;
+      repinBlockedUntil = Date.now() + 380;
+
+      const nudge = 2;
+      if (direction < 0) {
+        // release upward
+        window.scrollTo({ top: Math.max(0, lockY - nudge), behavior: "auto" });
+      } else {
+        // release downward
+        window.scrollTo({ top: lockY + nudge, behavior: "auto" });
+      }
+    }
+
+    function updateText() {
+      modelText.classList.remove("visible", "left", "right");
+      switch (stage) {
+        case 1:
+          modelText.textContent = "THE FUTURE OF DESIGN";
+          modelText.classList.add("right", "visible");
+          break;
+        case 2:
+          modelText.textContent = "THE FUTURE OF DESIGN";
+          modelText.classList.add("right");
+          break;
+        case 3:
+          modelText.textContent = "ENGINEERED FOR PERFORMANCE";
+          modelText.classList.add("left", "visible");
+          break;
+        case 4:
+          modelText.textContent = "ENGINEERED FOR PERFORMANCE";
+          modelText.classList.add("left");
+          break;
+        default:
+          modelText.textContent = "";
+      }
+    }
+
+    function animateRotation() {
+      currentRotation += (targetRotation - currentRotation) * 0.14;
+      if (Math.abs(targetRotation - currentRotation) < 0.05) {
+        currentRotation = targetRotation;
+      }
+      model.cameraOrbit = `${currentRotation}deg 75deg 105%`;
+
+      if (currentRotation !== targetRotation) {
+        rafId = requestAnimationFrame(animateRotation);
+      } else {
+        rafId = null;
+      }
+    }
+
+    function updateRotationTarget() {
+      const totalProgress = stage * SCROLLS_PER_STAGE + stageProgress; // 0..20
+      targetRotation = totalProgress * ROTATION_PER_SCROLL;
+      if (!rafId) rafId = requestAnimationFrame(animateRotation);
+    }
+
+    function render() {
+      updateText();
+      updateRotationTarget();
+    }
+
+    function canCapture(direction) {
+      if (direction > 0) return !(stage === 4 && stageProgress === 0);
+      return !(stage === 0 && stageProgress === 0);
+    }
+
+    function stepForward() {
+      stageProgress++;
+      if (stageProgress >= SCROLLS_PER_STAGE) {
+        stageProgress = 0;
+        if (stage < 4) stage++;
+      }
+    }
+
+    function stepBackward() {
+      if (stageProgress === 0) {
+        if (stage > 0) {
+          stage--;
+          stageProgress = SCROLLS_PER_STAGE - 1;
+        }
+      } else {
+        stageProgress--;
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          modelActive = entry.isIntersecting && entry.intersectionRatio >= 0.6;
+          if (modelActive && !isPinned && canCapture(1)) {
+            pinNow();
+          }
+        }
+      },
+      { threshold: [0, 0.25, 0.5, 0.6, 0.8, 1] }
+    );
+    observer.observe(modelSection);
+
+    // hard lock while pinned
+    window.addEventListener("scroll", () => {
+      if (isPinned) window.scrollTo({ top: lockY, behavior: "auto" });
+    }, { passive: true });
+
+    window.addEventListener("wheel", (event) => {
+      if (!modelActive) return;
+
+      const direction = Math.sign(event.deltaY);
+      if (direction === 0) return;
+
+      if (!isPinned && canCapture(direction)) pinNow();
+      if (!isPinned) return;
+
+      if (!canCapture(direction)) {
+        unpin(direction);
+        return;
+      }
+
+      event.preventDefault();
+      window.scrollTo({ top: lockY, behavior: "auto" });
+
+      wheelAccumulator += event.deltaY;
+
+      while (wheelAccumulator >= DELTA_STEP && canCapture(1)) {
+        stepForward();
+        wheelAccumulator -= DELTA_STEP;
+      }
+
+      while (wheelAccumulator <= -DELTA_STEP && canCapture(-1)) {
+        stepBackward();
+        wheelAccumulator += DELTA_STEP;
+      }
+
+      render();
+    }, { passive: false });
+
+    render();
+  </script>
 </body>
-
 </html>
