@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Scroll Transition Pages</title>
+
+    <!-- Model Viewer -->
+    <script
+        type="module"
+        src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+    </script>
+
+    <!-- Abril Fatface -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* ============================================================
+           GLOBAL
+        ============================================================ */
+
+        :root {
+            --font-display: 'Abril Fatface', serif;
+        }
+
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+            font-family: Arial, sans-serif;
+
+            background: #f5f5f5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        /* ============================================================
+           HEADLINES
+        ============================================================ */
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .page-title,
+        .section-text {
+            font-family: var(--font-display);
+        }
+
+
+        /* ============================================================
+           NAV
+        ============================================================ */
+
+        nav {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 80px;
+
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 1rem 2rem;
+
+            background: transparent;
+
+            z-index: 1000;
+
+            pointer-events: auto;
+        }
+
+        .logo,
+        .burger {
+            position: relative;
+            z-index: 1002;
+        }
+
+        .burger {
+            font-size: 2rem;
+
+            cursor: pointer;
+
+            color: black;
+
+            user-select: none;
+        }
+
+        nav ul {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            background-color: #ffffff;
+
+            display: none;
+
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: flex-end;
+
+            padding-right: 3rem;
+
+            gap: 2rem;
+
+            z-index: 1001;
+
+            list-style: none;
+
+            margin: 0;
+        }
+
+        nav ul.active {
+            display: flex;
+        }
+
+        nav ul li {
+            padding: 0;
+        }
+
+        nav a {
+            font-size: 1.8rem;
+
+            color: rgb(56, 56, 56);
+
+            text-decoration: none;
+
+            font-weight: 500;
+        }
+
+
+        /* ============================================================
+           TIMELINE
+        ============================================================ */
+
+        .timeline {
+            position: fixed;
+
+            left: 2rem;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            z-index: 900;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: flex-start;
+
+            gap: 1.5rem;
+
+            pointer-events: auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+
+            left: 7px;
+            top: 0;
+
+            width: 2px;
+            height: 100%;
+
+            background: black;
+        }
+
+        .timeline-item {
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            cursor: pointer;
+        }
+
+        .timeline-dot {
+            width: 14px;
+            height: 14px;
+
+            background: black;
+
+            border-radius: 50%;
+
+            transition: all 0.3s ease;
+
+            z-index: 2;
+
+            flex-shrink: 0;
+        }
+
+        .timeline-item.active .timeline-dot {
+            width: 16px;
+            height: 16px;
+
+            border-radius: 2px;
+        }
+
+        .timeline-label {
+            position: absolute;
+
+            left: 26px;
+
+            white-space: nowrap;
+
+            opacity: 0;
+
+            transform: translateX(-8px);
+
+            transition:
+                opacity 0.25s ease,
+                transform 0.25s ease;
+
+            color: black;
+
+            font-size: 0.95rem;
+
+            pointer-events: none;
+
+            user-select: none;
+        }
+
+        .timeline-item:hover .timeline-label {
+            opacity: 1;
+
+            transform: translateX(0);
+        }
+
+
+        /* ============================================================
+           MAIN CANVAS
+        ============================================================ */
+
+        .canvas {
+            position: relative;
+
+            width: 100vw;
+            height: 100vh;
+
+            overflow: hidden;
+        }
+
+
+        /* ============================================================
+           PAGE TRANSITIONS
+        ============================================================ */
+
+        .content {
+            position: absolute;
+
+            inset: 0;
+
+            opacity: 0;
+
+            transform: translateY(20px);
+
+            transition:
+                opacity 0.6s ease,
+                transform 0.6s ease;
+
+            pointer-events: none;
+        }
+
+        .content.active {
+            opacity: 1;
+
+            transform: translateY(0);
+
+            pointer-events: auto;
+        }
+
+
+        /* ============================================================
+           FULL PAGE
+        ============================================================ */
+
+        .full-page {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            flex-direction: column;
+
+            padding: 2rem;
+        }
+
+        .page-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+
+            color: #111;
+
+            text-align: center;
+
+            margin-bottom: 2rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+
+            color: #555;
+
+            text-align: center;
+
+            max-width: 600px;
+
+            line-height: 1.6;
+        }
+
+
+        /* ============================================================
+           SPLIT PAGE
+        ============================================================ */
+
+        .split-page {
+            width: min(1200px, calc(100% - 160px));
+
+            height: 100%;
+
+            margin: 0 auto;
+
+            padding-top: 80px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 4rem;
+
+            box-sizing: border-box;
+        }
+
+        .split-page.reverse {
+            flex-direction: row-reverse;
+        }
+
+
+        /* ============================================================
+           TEXT AREA
+        ============================================================ */
+
+        .text-scroll-area {
+            width: 50%;
+
+            max-width: 500px;
+
+            height: calc(100vh - 80px);
+
+            padding: 4rem 1rem;
+
+            box-sizing: border-box;
+
+            overflow-y: auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+        .text-scroll-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .text-scroll-area::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .text-scroll-area::-webkit-scrollbar-thumb {
+            background: #ccc;
+
+            border-radius: 4px;
+        }
+
+        .text-scroll-area::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+
+        .section-text {
+            font-size: 20px;
+
+            font-weight: normal;
+
+            color: #111;
+
+            line-height: 1.1;
+
+            margin: 0;
+        }
+
+        .section-copy {
+            font-size: 15px;
+
+            margin-top: 1rem;
+
+            line-height: 1.6;
+
+            color: #333;
+
+            margin-bottom: 4rem;
+        }
+
+        .section-copy:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* ============================================================
+           MODEL AREA
+        ============================================================ */
+
+        .model-sticky-area {
+            width: 50%;
+
+            height: calc(100vh - 80px);
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            position: sticky;
+
+            top: 80px;
+
+            flex-shrink: 0;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 100%;
+
+            background: transparent;
+        }
+
+
+        /* ============================================================
+           TABLET
+        ============================================================ */
+
+        @media (max-width: 1000px) {
+
+            .split-page {
+                width: min(900px, calc(100% - 120px));
+
+                gap: 2rem;
+            }
+
+            .text-scroll-area {
+                width: 50%;
+            }
+
+            .model-sticky-area {
+                width: 50%;
+            }
+
+        }
+
+
+        /* ============================================================
+           MOBILE / SMALL SCREEN
+        ============================================================ */
+
+        @media (max-width: 700px) {
+
+            html,
+            body {
+                overflow: hidden;
+            }
+
+
+            /* --------------------------------
+               Timeline
+            -------------------------------- */
+
+            .timeline {
+                left: 1rem;
+
+                gap: 1rem;
+            }
+
+            .timeline-label {
+                display: none;
+            }
+
+
+            /* --------------------------------
+               Split becomes vertical
+            -------------------------------- */
+
+            .split-page,
+            .split-page.reverse {
+
+                width: 100%;
+
+                height: 100%;
+
+                margin: 0;
+
+                padding-top: 80px;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: center;
+
+                justify-content: flex-start;
+
+                gap: 0;
+
+                overflow-y: auto;
+            }
+
+
+            /* --------------------------------
+               Model
+            -------------------------------- */
+
+            .model-sticky-area {
+
+                width: 100%;
+
+                height: 50vh;
+
+                min-height: 350px;
+
+                position: relative;
+
+                top: auto;
+
+                flex-shrink: 0;
+
+                display: flex;
+
+                justify-content: center;
+
+                align-items: center;
+            }
+
+            model-viewer {
+
+                width: 100%;
+
+                height: 100%;
+            }
+
+
+            /* --------------------------------
+               Text
+            -------------------------------- */
+
+            .text-scroll-area {
+
+                width: 100%;
+
+                max-width: 650px;
+
+                height: auto;
+
+                min-height: 50vh;
+
+                padding: 3rem 2rem 6rem;
+
+                overflow: visible;
+
+                display: block;
+            }
+
+            .section-text {
+
+                font-size: 2rem;
+            }
+
+            .section-copy {
+
+                font-size: 1rem;
+
+                margin-bottom: 3rem;
+            }
+
+
+            /* --------------------------------
+               Full pages
+            -------------------------------- */
+
+            .full-page {
+
+                padding: 2rem 4rem;
+            }
+
+            .page-title {
+
+                font-size: 2.2rem;
+
+                margin-bottom: 1.5rem;
+            }
+
+            .page-subtitle {
+
+                font-size: 1rem;
+            }
+
+
+            /* --------------------------------
+               Mobile navigation
+            -------------------------------- */
+
+            nav {
+
+                padding: 1rem;
+            }
+
+            nav ul {
+
+                align-items: center;
+
+                padding-right: 0;
+            }
+
+            nav a {
+
+                font-size: 1.5rem;
+            }
+
+        }
+
+
+        /* ============================================================
+           VERY SMALL PHONES
+        ============================================================ */
+
+        @media (max-width: 450px) {
+
+            .model-sticky-area {
+
+                height: 45vh;
+
+                min-height: 280px;
+            }
+
+            .text-scroll-area {
+
+                padding:
+                    2rem
+                    1.5rem
+                    5rem;
+            }
+
+            .section-text {
+
+                font-size: 1.8rem;
+            }
+
+            .section-copy {
+
+                font-size: 0.95rem;
+            }
+
+            .full-page {
+
+                padding: 2rem 3rem;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ============================================================
+         NAVIGATION
+    ============================================================ -->
+
+    <nav>
+
+        <div class="logo"></div>
+
+        <div class="burger" id="burger">☰</div>
+
+        <ul id="nav-links">
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="interiorDesign.html">
+                    Interior design
+                </a>
+            </li>
+
+            <li>
+                <a href="productTechnology.html">
+                    Product technology
+                </a>
+            </li>
+
+            <li>
+                <a href="photography.html">
+                    Photography
+                </a>
+            </li>
+
+            <li>
+                <a href="contact.html">
+                    Contact
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- ============================================================
+         TIMELINE
+    ============================================================ -->
+
+    <div class="timeline" aria-hidden="false">
+
+        <div class="timeline-line"></div>
+
+        <div class="timeline-item active" data-index="0">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-label">
+                Home
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item" data-index="1">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-label">
+                Interior Design
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item" data-index="2">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-label">
+                Product Technology
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item" data-index="3">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-label">
+                Photography
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item" data-index="4">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-label">
+                Contact
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================================================
+         MAIN
+    ============================================================ -->
+
+    <div class="canvas">
+
+
+        <!-- HOME -->
+
+        <div class="content active" id="contentHome">
+
+            <div class="full-page">
+
+                <div class="page-title">
+                    Signe Lund Nissen
+                </div>
+
+                <div class="page-subtitle">
+                    Welcome to our creative portfolio.
+                    Explore our work across interior design,
+                    product technology, photography, and more.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- INTERIOR DESIGN -->
+
+        <div class="content" id="contentInteriorDesign">
+
+            <div class="split-page">
+
+                <div class="text-scroll-area">
+
+                    <div class="section-text">
+                        Production Technology
+                    </div>
+
+                    <div class="section-copy">
+                        Creating stunning spaces that blend
+                        aesthetic beauty with functional design.
+                        Our interior design services transform
+                        your vision into reality.
+                    </div>
+
+
+                    <div class="section-text">
+                        Design Philosophy
+                    </div>
+
+                    <div class="section-copy">
+                        We believe that great interior design
+                        goes beyond aesthetics. It's about
+                        creating spaces that inspire, comfort,
+                        and enhance your daily life.
+                    </div>
+
+                </div>
+
+
+                <div class="model-sticky-area">
+
+                    <model-viewer
+                        id="mainModel"
+                        src="models/ass_2.glb"
+                        camera-controls
+                        auto-rotate
+                        rotation-per-second="2deg"
+                        camera-orbit="135deg 75deg 105%"
+                        shadow-intensity="1.5"
+                        exposure="0.4"
+                        ar
+                        interaction-prompt="none"
+                        alt="3D model"
+                    ></model-viewer>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT TECHNOLOGY -->
+
+        <div class="content" id="contentProductTechnology">
+
+            <div class="full-page">
+
+                <div class="page-title">
+                    Product Technology
+                </div>
+
+                <div class="page-subtitle">
+                    Innovation meets design in our cutting-edge
+                    product technology solutions. We create tools
+                    that make a difference.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PHOTOGRAPHY -->
+
+        <div class="content" id="contentPhotography">
+
+            <div class="full-page">
+
+                <div class="page-title">
+                    Photography
+                </div>
+
+                <div class="page-subtitle">
+                    Capturing moments with precision and artistry.
+                    Our photography services showcase the beauty
+                    in every frame, telling your unique story
+                    through visual excellence.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTACT -->
+
+        <div class="content" id="contentContact">
+
+            <div class="full-page">
+
+                <div class="page-title">
+                    Contact
+                </div>
+
+                <div class="page-subtitle">
+                    Get in touch with us to discuss your next
+                    project. We'd love to hear from you and help
+                    bring your ideas to life.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================================================
+         JAVASCRIPT
+    ============================================================ -->
+
+    <script>
+
+        /* ============================================================
+           BURGER MENU
+        ============================================================ */
+
+        const burger =
+            document.getElementById('burger');
+
+        const navLinks =
+            document.getElementById('nav-links');
+
+
+        burger.addEventListener('click', () => {
+
+            navLinks.classList.toggle('active');
+
+            burger.textContent =
+                navLinks.classList.contains('active')
+                    ? '✕'
+                    : '☰';
+
+            burger.style.color =
+                navLinks.classList.contains('active')
+                    ? 'black'
+                    : '';
+
+        });
+
+
+        /* ============================================================
+           PAGES
+        ============================================================ */
+
+        const pages = [
+
+            document.getElementById('contentHome'),
+
+            document.getElementById(
+                'contentInteriorDesign'
+            ),
+
+            document.getElementById(
+                'contentProductTechnology'
+            ),
+
+            document.getElementById(
+                'contentPhotography'
+            ),
+
+            document.getElementById(
+                'contentContact'
+            )
+
+        ];
+
+
+        /* ============================================================
+           TIMELINE
+        ============================================================ */
+
+        const timelineItems =
+            Array.from(
+                document.querySelectorAll(
+                    '.timeline-item'
+                )
+            );
+
+
+        let currentIndex = 0;
+
+        let isAnimating = false;
+
+
+        /* ============================================================
+           PAGE TRANSITION
+        ============================================================ */
+
+        function goToPage(index) {
+
+            if (
+                isAnimating ||
+                index < 0 ||
+                index >= pages.length ||
+                index === currentIndex
+            ) {
+                return;
+            }
+
+
+            isAnimating = true;
+
+
+            const activePage =
+                pages[currentIndex];
+
+
+            const textScrollArea =
+                activePage.querySelector(
+                    '.text-scroll-area'
+                );
+
+
+            /* --------------------------------
+               Check text scroll position
+            -------------------------------- */
+
+            if (textScrollArea) {
+
+                const isAtBottom =
+                    textScrollArea.scrollHeight -
+                    textScrollArea.scrollTop -
+                    textScrollArea.clientHeight < 10;
+
+
+                const isAtTop =
+                    textScrollArea.scrollTop < 10;
+
+
+                if (
+                    index > currentIndex &&
+                    !isAtBottom
+                ) {
+
+                    isAnimating = false;
+
+                    return;
+                }
+
+
+                if (
+                    index < currentIndex &&
+                    !isAtTop
+                ) {
+
+                    isAnimating = false;
+
+                    return;
+                }
+
+            }
+
+
+            /* --------------------------------
+               Hide current page
+            -------------------------------- */
+
+            pages[currentIndex]
+                .classList
+                .remove('active');
+
+
+            setTimeout(() => {
+
+                /* --------------------------------
+                   Show new page
+                -------------------------------- */
+
+                pages[index]
+                    .classList
+                    .add('active');
+
+
+                /* --------------------------------
+                   Timeline
+                -------------------------------- */
+
+                timelineItems[currentIndex]
+                    .classList
+                    .remove('active');
+
+
+                timelineItems[index]
+                    .classList
+                    .add('active');
+
+
+                /* --------------------------------
+                   Reset text scroll
+                -------------------------------- */
+
+                const newPage =
+                    pages[index];
+
+
+                const newTextScrollArea =
+                    newPage.querySelector(
+                        '.text-scroll-area'
+                    );
+
+
+                if (newTextScrollArea) {
+
+                    newTextScrollArea.scrollTop = 0;
+
+                }
+
+
+                currentIndex = index;
+
+
+                setTimeout(() => {
+
+                    isAnimating = false;
+
+                }, 300);
+
+            }, 300);
+
+        }
+
+
+        /* ============================================================
+           MOUSE WHEEL
+        ============================================================ */
+
+        window.addEventListener(
+            'wheel',
+            (e) => {
+
+                if (
+                    navLinks.classList.contains(
+                        'active'
+                    )
+                ) {
+                    return;
+                }
+
+
+                if (e.deltaY > 0) {
+
+                    goToPage(
+                        currentIndex + 1
+                    );
+
+                } else {
+
+                    goToPage(
+                        currentIndex - 1
+                    );
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        /* ============================================================
+           TOUCH
+        ============================================================ */
+
+        let touchStartY = 0;
+
+
+        window.addEventListener(
+            'touchstart',
+            (e) => {
+
+                touchStartY =
+                    e.touches[0].clientY;
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        window.addEventListener(
+            'touchend',
+            (e) => {
+
+                if (
+                    navLinks.classList.contains(
+                        'active'
+                    )
+                ) {
+                    return;
+                }
+
+
+                const touchEndY =
+                    e.changedTouches[0].clientY;
+
+
+                const diff =
+                    touchStartY - touchEndY;
+
+
+                if (
+                    Math.abs(diff) > 40
+                ) {
+
+                    if (diff > 0) {
+
+                        goToPage(
+                            currentIndex + 1
+                        );
+
+                    } else {
+
+                        goToPage(
+                            currentIndex - 1
+                        );
+
+                    }
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        /* ============================================================
+           TIMELINE CLICK
+        ============================================================ */
+
+        timelineItems.forEach((item) => {
+
+            item.addEventListener(
+                'click',
+                () => {
+
+                    const index =
+                        Number(
+                            item.dataset.index
+                        );
+
+
+                    goToPage(index);
+
+                }
+            );
+
+        });
+
+    </script>
+
+</body>
+
+</html>

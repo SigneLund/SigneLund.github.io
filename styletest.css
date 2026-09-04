@@ -1,0 +1,143 @@
+    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+    header h1 {
+    font-family: var(--font-display);
+
+    }
+
+
+    :root{
+      --font-display: 'Abril Fatface', serif;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      color: black;
+      
+    }
+    h1 {
+    font-family: var(--font-display);
+
+    }
+    h2 {
+    font-family: var(--font-display);
+
+    }
+    body {
+      line-height: 1.6;
+      background-color: #ffffff;
+      
+    }
+    /* Nav container */
+    nav {
+    position: fixed;        /* removes it from document flow */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;           /* visual height only */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: transparent;
+    z-index: 1000;
+    pointer-events: auto;
+    }
+    /* Logo + burger stay on top */
+    .logo,
+    .burger {
+    position: relative;
+    z-index: 1002;
+    }
+
+    /* Burger */
+    .burger {
+    font-size: 2rem;
+    cursor: pointer;
+    color: black;
+    }
+
+    /* Overlay menu */
+    nav ul {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: #a1d408; */ 
+        background-color: #ffffff;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; /* push links to the right */
+    padding-right: 3rem;
+    gap: 2rem;
+    z-index: 1001; /* behind logo & burger */
+    }
+
+    /* Active state */
+    nav ul.active {
+    display: flex;
+    }
+
+    /* Menu items */
+    nav ul li {
+    padding: 0;
+    text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+    }
+
+
+    /* Links */
+    nav a {
+    font-size: 1.8rem;
+    color: rgb(56, 56, 56);
+    text-decoration: none;
+    font-weight: 500;
+    }
+
+
+    .hero {
+        margin-top: 0;
+        display: flex;
+        min-height: 10vh;
+        max-height: 20vh;
+        padding: 0;
+    }
+
+    .hero-text {
+        flex: 1;
+        padding: 4rem 2rem;
+    }
+
+    .hero-image {
+        flex: 1;
+        height: 100%;
+    }
+.canvas {
+    width: 100%;
+    height: 100vh;
+
+    position: relative;
+
+    background: white;
+}
+
+#three-container {
+    width: 100%;
+    height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+#three-container canvas {
+    display: block;
+
+    width: 100% !important;
+    height: 100% !important;
+}

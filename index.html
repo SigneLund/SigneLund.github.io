@@ -1,206 +1,628 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="styles.css">
-<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Signe Lund Nissen</title>
+    <title>Scroll Transition Pages</title>
 
+    <!-- Model Viewer -->
+    <script
+        type="module"
+        src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+    </script>
+
+    <!-- Abril Fatface -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css">
+    <style>
+
+
+    </style>
 </head>
 
-<style>
-    .burger {
-        display: block;        /* always visible */
-        font-size: 2rem;
-        cursor: pointer;
-        color: rgb(255, 255, 255);
-    }
 
-</style>
 <body>
-  <!-- <section class="hero">
+
+    <!-- ============================================================
+         NAVIGATION
+    ============================================================ -->
 
     <nav>
-    <div class="logo">Logo</div>
 
-    <div class="burger" id="burger">☰</div>
+        <div class="logo"></div>
 
-    <ul id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="interiorDesign.html">Interior design</a></li>
-        <li><a href="productTechnology.html">Product technology</a></li>
-        <li><a href="photography.html">Photography</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
+        <div class="burger" id="burger">☰</div>
+
+        <ul id="nav-links">
+
+            <li>
+                <a class="page-title" href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a class="page-title" href="interiorDesign.html">
+                    Interior design
+                </a>
+            </li>
+
+            <li>
+                <a class="page-title" href="productTechnology.html">
+                    Product technology
+                </a>
+            </li>
+
+            <li>
+                <a class="page-title" href="photography.html">
+                    Photography
+                </a>
+            </li>
+
+            <li>
+                <a class="page-title" href="contact.html">
+                    Contact
+                </a>
+            </li>
+
+        </ul>
+
     </nav>
 
-    <div class="hero-text">
-      <h1 class="name">Signe Lund Nissen</h1>
-        <p>
-        <h3>Welcome</h3>
-        <br>
-        to my personal Gallery.
-        This is a collection of all my work reaching from interior design to 3D work in product development and refignment.
 
-        <br><br>
-        Lorem Ipsum is simply dummy text of the prie release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-    </div>
-    <div class="hero-image">
-      <img src="/images/WhaleImage.jpg" alt="Hero Image">
-    </div>
-  </section> --> 
-  <nav>
-  <div class="logo"></div>
+    <!-- ============================================================
+         TIMELINE
+    ============================================================ -->
 
-  <div class="burger" id="burger">☰</div>
+    <div class="timeline" aria-hidden="false">
 
-  <ul id="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="interiorDesign.html">Interior design</a></li>
-    <li><a href="productTechnology.html">Product technology</a></li>
-    <li><a href="photography.html">Photography</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
-<Section class="home-hero">
-    <h1>Signe Lund Nissen</h1>
-</Section>
-  <!-- SECTION LEFT -->
-  <section class="section">
-  <div class="content-box">
-    <div class="background-box"></div>
+        <div class="timeline-line"></div>
 
-    <div class="content">
-      <h2>Product technology</h2>
+        <div class="timeline-item active" data-index="0">
 
-      <div class="image-grid">
-        <a href="https://example.com" class="card">
-          <img src="images/imageChairBlender.webp" alt="">
-          <h4>Header 1</h4>
-        </a>
+            <div class="timeline-dot"></div>
 
-        <a href="#" class="card">
-          <img src="images/imageChairBlender.webp" alt="">
-          <h4>Header 2</h4>
-        </a>
+            <div class="timeline-label">
+                Home
+            </div>
 
-        <a href="#" class="card">
-          <img src="images/imageChairBlender.webp" alt="">
-          <h4>Header 3</h4>
-        </a>
-
-        <a href="#" class="card">
-          <img src="images/imageChairBlender.webp" alt="">
-          <h4>Header 4</h4>
-        </a>
-
-        <a href="#" class="card">
-          <img src="images/imageChairBlender.webp" alt="">
-          <h4>Header 5</h4>
-        </a>
-
-        <a href="#" class="card">
-          <img src="images/imageChairBlender.webp" alt="">
-          <h4>Header 6</h4>
-        </a>
-      </div>
-
-      <div class="button-container">
-        <button>Read More</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- SECTION RIGHT -->
-  <section class="section right">
-    <div class="content-box">
-      <div class="background-box"></div>
-
-      <div class="content">
-        <h2 class="contentRightH2">Interior design</h2>
-
-        <div class="image-grid">
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 1</h4>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 2</h4>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 3</h4>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 4</h4>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 5</h4>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 6</h4>
-          </div>
         </div>
 
-        <div class="button-container-right">
-          <button>Read More</button>
+
+        <div class="timeline-item" data-index="1">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-label">
+                Interior Design
+            </div>
+
         </div>
-      </div>
+
+
+        <div class="timeline-item" data-index="2">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-label">
+                Product Technology
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item" data-index="3">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-label">
+                Photography
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item" data-index="4">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-label">
+                Contact
+            </div>
+
+        </div>
+
     </div>
-  </section>
 
 
-    <!-- SECTION LEFT -->
-  <section class="section">
-    <div class="content-box">
-      <div class="background-box"></div>
+    <!-- ============================================================
+         MAIN
+    ============================================================ -->
 
-      <div class="content">
-        <h2>Photography</h2>
+    <div class="canvas">
 
-        <div class="image-grid">
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 1</h4>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 2</h4>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 3</h4>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 4</h4>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 5</h4>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/250" alt="">
-            <h4>Header 6</h4>
-          </div>
+
+        <!-- HOME -->
+
+        <div class="content active" id="contentHome">
+
+            <div class="full-page">
+
+                <div class="page-title">
+                    Signe Lund Nissen
+                </div>
+
+                <div class="page-subtitle">
+                    Welcome to our creative portfolio.
+                    Explore our work across interior design,
+                    product technology, photography, and more.
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="button-container">
-          <button>Read More</button>
+
+        <!-- INTERIOR DESIGN -->
+
+        <div class="content" id="contentInteriorDesign" style="background-color: #a3bdc7;">
+
+            <div class="split-page">
+
+                <div class="text-scroll-area">
+
+                    <div class="page-title" style="text-align: left; margin-bottom: 0px; color: #533737;">
+                        Production Technology
+                    </div>
+
+                    <div class="section-copy">
+                          <strong>SolidWorks</strong> used for assignments and exams at <strong>Erhvervsakademi København</strong>
+                          <br><br>
+                          Turning innovative ideas and reinvented products into accurate, manufacturable designs.
+                          <br><br>
+                          Using SOLIDWORKS to create 3D models, assemblies, prototypes, and detailed product documentation, including 3D printing and production-ready designs.
+                          <br><br>
+                          Faster development, easier identification of design improvements, and accurate documentation that supports reproduction and mass production.
+
+                    </div>
+                    
+                <a href="productTechnology.html">
+                    <button style="width: 135px; background-color: white; color: black;">
+                        See more
+                    </button>
+                </a>
+                    
+              
+
+                </div>
+
+
+                <div class="model-sticky-area">
+
+                    <model-viewer
+                        id="mainModel"
+                        src="models/ASS-CASE1.glb"
+                        camera-controls
+                        auto-rotate
+                        rotation-per-second="2deg"
+                        camera-orbit="135deg 75deg 105%"
+                        shadow-intensity="1.5"
+                        exposure="0.4"
+                        ar
+                        interaction-prompt="none"
+                        alt="3D model"
+                    ></model-viewer>
+
+                </div>
+
+            </div>
+
         </div>
-      </div>
+
+
+        <!-- PRODUCT TECHNOLOGY -->
+
+        <div class="content" id="contentProductTechnology">
+
+            <div class="full-page" style="    background-image: url(autocad/big.png);
+                background-repeat: no-repeat;
+                background-size: 84%;
+                    background-position: 318% -433%;
+                align-items: start;
+                padding: 8rem;">
+
+                <div class="page-title" style="text-align: left; color: #92a7af;">
+                    Interior Design
+                </div>
+
+                <div class="page-subtitle" style="text-align: left;">
+                  <strong>AutoCAD</strong> Used in assignments and exams at <strong>School of Interior Design Copenhagen</strong>
+                  <br><br>
+                  Creating functional and well-organized spaces that make the best use of available room.
+                  <br><br>
+                  Using AutoCAD to produce precise blueprints and layouts, calculating room dimensions and strategically placing furniture, equipment, and other elements.
+                  <br><br>
+                  Functional and efficient layouts for environments such as offices, hospitals, and residential spaces, with accurate plans ready for implementation.
+                  
+                </div>
+                <br><br>
+                <a href="interiorDesign.html">
+                    <button >
+                        See more
+                    </button>
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- PHOTOGRAPHY -->
+
+        <div class="content" id="contentPhotography">
+
+            <div class="full-page">
+
+                <div class="page-title">
+                    Photography
+                </div>
+
+                <div class="page-subtitle">
+                    Capturing moments with precision and artistry.
+                    Our photography services showcase the beauty
+                    in every frame, telling your unique story
+                    through visual excellence.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTACT -->
+
+        <div class="content" id="contentContact">
+
+            <div class="full-page">
+
+                <div class="page-title">
+                    Contact
+                </div>
+
+                <div class="page-subtitle">
+                    Get in touch with us to discuss your next
+                    project. We'd love to hear from you and help
+                    bring your ideas to life.
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-  </section>
-  <script src="js.js"></script>
+
+
+    <!-- ============================================================
+         JAVASCRIPT
+    ============================================================ -->
+    <script src="js.js"></script>
+    <script>
+
+
+        const pages = [
+
+            document.getElementById('contentHome'),
+
+            document.getElementById(
+                'contentInteriorDesign'
+            ),
+
+            document.getElementById(
+                'contentProductTechnology'
+            ),
+
+            document.getElementById(
+                'contentPhotography'
+            ),
+
+            document.getElementById(
+                'contentContact'
+            )
+
+        ];
+
+
+        /* ============================================================
+           TIMELINE
+        ============================================================ */
+
+        const timelineItems =
+            Array.from(
+                document.querySelectorAll(
+                    '.timeline-item'
+                )
+            );
+
+
+        let currentIndex = 0;
+
+        let isAnimating = false;
+
+
+        /* ============================================================
+           PAGE TRANSITION
+        ============================================================ */
+
+        function goToPage(index) {
+
+            if (
+                isAnimating ||
+                index < 0 ||
+                index >= pages.length ||
+                index === currentIndex
+            ) {
+                return;
+            }
+
+
+            isAnimating = true;
+
+
+            const activePage =
+                pages[currentIndex];
+
+
+            const textScrollArea =
+                activePage.querySelector(
+                    '.text-scroll-area'
+                );
+
+
+            /* --------------------------------
+               Check text scroll position
+            -------------------------------- */
+
+            if (textScrollArea) {
+
+                const isAtBottom =
+                    textScrollArea.scrollHeight -
+                    textScrollArea.scrollTop -
+                    textScrollArea.clientHeight < 10;
+
+
+                const isAtTop =
+                    textScrollArea.scrollTop < 10;
+
+
+                if (
+                    index > currentIndex &&
+                    !isAtBottom
+                ) {
+
+                    isAnimating = false;
+
+                    return;
+                }
+
+
+                if (
+                    index < currentIndex &&
+                    !isAtTop
+                ) {
+
+                    isAnimating = false;
+
+                    return;
+                }
+
+            }
+
+
+            /* --------------------------------
+               Hide current page
+            -------------------------------- */
+
+            pages[currentIndex]
+                .classList
+                .remove('active');
+
+
+            setTimeout(() => {
+
+                /* --------------------------------
+                   Show new page
+                -------------------------------- */
+
+                pages[index]
+                    .classList
+                    .add('active');
+
+
+                /* --------------------------------
+                   Timeline
+                -------------------------------- */
+
+                timelineItems[currentIndex]
+                    .classList
+                    .remove('active');
+
+
+                timelineItems[index]
+                    .classList
+                    .add('active');
+
+
+                /* --------------------------------
+                   Reset text scroll
+                -------------------------------- */
+
+                const newPage =
+                    pages[index];
+
+
+                const newTextScrollArea =
+                    newPage.querySelector(
+                        '.text-scroll-area'
+                    );
+
+
+                if (newTextScrollArea) {
+
+                    newTextScrollArea.scrollTop = 0;
+
+                }
+
+
+                currentIndex = index;
+
+
+                setTimeout(() => {
+
+                    isAnimating = false;
+
+                }, 300);
+
+            }, 300);
+
+        }
+
+
+        /* ============================================================
+           MOUSE WHEEL
+        ============================================================ */
+
+        window.addEventListener(
+            'wheel',
+            (e) => {
+
+                if (
+                    navLinks.classList.contains(
+                        'active'
+                    )
+                ) {
+                    return;
+                }
+
+
+                if (e.deltaY > 0) {
+
+                    goToPage(
+                        currentIndex + 1
+                    );
+
+                } else {
+
+                    goToPage(
+                        currentIndex - 1
+                    );
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        /* ============================================================
+           TOUCH
+        ============================================================ */
+
+        let touchStartY = 0;
+
+
+        window.addEventListener(
+            'touchstart',
+            (e) => {
+
+                touchStartY =
+                    e.touches[0].clientY;
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        window.addEventListener(
+            'touchend',
+            (e) => {
+
+                if (
+                    navLinks.classList.contains(
+                        'active'
+                    )
+                ) {
+                    return;
+                }
+
+
+                const touchEndY =
+                    e.changedTouches[0].clientY;
+
+
+                const diff =
+                    touchStartY - touchEndY;
+
+
+                if (
+                    Math.abs(diff) > 40
+                ) {
+
+                    if (diff > 0) {
+
+                        goToPage(
+                            currentIndex + 1
+                        );
+
+                    } else {
+
+                        goToPage(
+                            currentIndex - 1
+                        );
+
+                    }
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        /* ============================================================
+           TIMELINE CLICK
+        ============================================================ */
+
+        timelineItems.forEach((item) => {
+
+            item.addEventListener(
+                'click',
+                () => {
+
+                    const index =
+                        Number(
+                            item.dataset.index
+                        );
+
+
+                    goToPage(index);
+
+                }
+            );
+
+        });
+
+    </script>
+
 </body>
 
 </html>
-

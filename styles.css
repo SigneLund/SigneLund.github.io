@@ -1,332 +1,1110 @@
-       @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
-    header h1 {
+/* ============================================================
+   FONT
+============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+
+/* ============================================================
+   GLOBAL
+============================================================ */
+
+:root {
+    --font-display: 'Abril Fatface', serif;
+    --font-body: Arial, sans-serif;
+
+    --color-black: #000;
+    --color-dark: #111;
+    --color-text: #333;
+    --color-muted: #555;
+    --color-white: #fff;
+
+    --color-accent: #417cc0;
+    --color-button: #92a7af;
+    --color-background-box: #72898a;
+    --color-scrollbar: #ccc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: var(--font-body);
+    color: var(--color-black);
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+
+    
+
+    font-family: var(--font-body);
+
+    line-height: 1.6;
+
+    background: #fff;
+}
+
+
+/* ============================================================
+   HEADLINES
+============================================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.page-title,
+.section-text {
     font-family: var(--font-display);
+}
 
-    }
+
+/* ============================================================
+   HEADER
+============================================================ */
+
+header {
+    padding-top: 100px;
+    padding-bottom: 30px;
+
+    text-align: left;
+
+    background-color: #fff;
+}
+
+header h1 {
+    font-size: 3.5rem;
+
+    margin-bottom: 1rem;
+}
 
 
-    :root{
-      --font-display: 'Abril Fatface', serif;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-      color: black;
-      
-    }
-    h1 {
-    font-family: var(--font-display);
+/* ============================================================
+   NAVIGATION
+============================================================ */
 
-    }
-    h2 {
-    font-family: var(--font-display);
+nav {
+    position: fixed;
 
-    }
-    body {
-      line-height: 1.6;
-      background-color: #f0f4e4;
-      
-    }
-    /* Nav container */
-    nav {
-    position: fixed;        /* removes it from document flow */
     top: 0;
     left: 0;
+
     width: 100%;
-    height: 80px;           /* visual height only */
+    height: 80px;
+
     display: flex;
+
     justify-content: space-between;
     align-items: center;
+
     padding: 1rem 2rem;
+
     background: transparent;
+
     z-index: 1000;
+
     pointer-events: auto;
-    }
-    /* Logo + burger stay on top */
-    .logo,
-    .burger {
+}
+
+
+/* Logo + burger */
+
+.logo,
+.burger {
     position: relative;
+
     z-index: 1002;
-    }
+}
 
-    /* Burger */
-    .burger {
+
+/* Burger */
+
+.burger {
     font-size: 2rem;
-    cursor: pointer;
-    color: black;
-    }
 
-    /* Overlay menu */
-    nav ul {
+    color: var(--color-black);
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+
+/* Overlay menu */
+
+nav ul {
     position: fixed;
+
     top: 0;
     left: 0;
+
     width: 100vw;
     height: 100vh;
-    background-color: #f0f4e4;
+
     display: none;
+
     flex-direction: column;
+
     justify-content: center;
-    align-items: flex-end; /* push links to the right */
-    padding-right: 3rem;
+    align-items: flex-end;
+
     gap: 2rem;
-    z-index: 1001; /* behind logo & burger */
-    }
 
-    /* Active state */
-    nav ul.active {
+    padding-right: 3rem;
+
+    margin: 0;
+
+    list-style: none;
+
+    background-color: var(--color-white);
+
+    z-index: 1001;
+}
+
+
+/* Active menu */
+
+nav ul.active {
     display: flex;
-    }
+}
 
-    /* Menu items */
-    nav ul li {
+
+/* Menu items */
+
+nav ul li {
     padding: 0;
-    text-decoration: none;
-    }
-    nav ul {
-      list-style: none;
-    }
+}
 
 
-    /* Links */
-    nav a {
+/* Links */
+
+nav a {
     font-size: 1.8rem;
+
     color: rgb(56, 56, 56);
+
     text-decoration: none;
+
     font-weight: 500;
+}
+
+
+/* ============================================================
+   TIMELINE
+============================================================ */
+
+.timeline {
+    position: fixed;
+
+    left: 2rem;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 1.5rem;
+
+    z-index: 900;
+
+    pointer-events: auto;
+}
+
+
+/* Timeline line */
+
+.timeline-line {
+    position: absolute;
+
+    left: 7px;
+    top: 0;
+
+    width: 2px;
+    height: 100%;
+
+    background: var(--color-black);
+}
+
+
+/* Timeline item */
+
+.timeline-item {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    cursor: pointer;
+}
+
+
+/* Timeline dot */
+
+.timeline-dot {
+    width: 14px;
+    height: 14px;
+
+    flex-shrink: 0;
+
+    background: var(--color-black);
+
+    border-radius: 50%;
+
+    transition: all 0.3s ease;
+
+    z-index: 2;
+}
+
+
+/* Active dot */
+
+.timeline-item.active .timeline-dot {
+    width: 16px;
+    height: 16px;
+
+    border-radius: 2px;
+}
+
+
+/* Timeline label */
+
+.timeline-label {
+    position: absolute;
+
+    left: 26px;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    transform: translateX(-8px);
+
+    color: var(--color-black);
+
+    font-size: 0.95rem;
+
+    pointer-events: none;
+    user-select: none;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+/* Timeline label hover */
+
+.timeline-item:hover .timeline-label {
+    opacity: 1;
+
+    transform: translateX(0);
+}
+
+
+/* ============================================================
+   MAIN CANVAS
+============================================================ */
+
+.canvas {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   PAGE TRANSITIONS
+============================================================ */
+
+.content {
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0;
+
+    transform: translateY(20px);
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+}
+
+
+/* Active page */
+
+.content.active {
+    opacity: 1;
+
+    transform: translateY(0);
+
+    pointer-events: auto;
+}
+
+
+/* ============================================================
+   FULL PAGE
+============================================================ */
+
+.full-page {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 2rem;
+}
+
+
+/* Page title */
+
+.page-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+
+    color: var(--color-dark);
+
+    text-align: center;
+
+    margin-bottom: 2rem;
+}
+
+
+/* Page subtitle */
+
+.page-subtitle {
+    max-width: 600px;
+
+    font-size: 15px;
+
+    color: var(--color-muted);
+
+    text-align: center;
+
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   SPLIT PAGE
+============================================================ */
+
+.split-page {
+    width: min(1200px, calc(100% - 160px));
+    height: 100%;
+
+    margin: 0 auto;
+
+    padding-top: 80px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 4rem;
+}
+
+.split-page.reverse {
+    flex-direction: row-reverse;
+}
+
+
+/* ============================================================
+   TEXT SCROLL AREA
+============================================================ */
+
+.text-scroll-area {
+    width: 50%;
+    max-width: 500px;
+
+    height: calc(100vh - 80px);
+
+    padding: 4rem 1rem;
+
+    overflow-y: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+/* Scrollbar */
+
+.text-scroll-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.text-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.text-scroll-area::-webkit-scrollbar-thumb {
+    background: var(--color-scrollbar);
+
+    border-radius: 4px;
+}
+
+.text-scroll-area::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+
+/* Section heading */
+
+.section-text {
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: normal;
+
+    color: var(--color-dark);
+
+    line-height: 1.1;
+}
+
+
+/* Section copy */
+
+.section-copy {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    font-size: 15px;
+
+    color: var(--color-text);
+
+    line-height: 1.6;
+}
+
+.section-copy:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ============================================================
+   MODEL AREA
+============================================================ */
+
+.model-sticky-area {
+    width: 50%;
+    height: calc(100vh - 80px);
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    position: sticky;
+
+    top: 80px;
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+
+    background: transparent;
+}
+
+
+/* ============================================================
+   HERO
+============================================================ */
+
+.hero {
+    margin-top: 0;
+
+    min-height: 10vh;
+    max-height: 20vh;
+
+    padding: 0;
+
+    display: flex;
+}
+
+.hero-text {
+    flex: 1;
+
+    padding: 4rem 2rem;
+}
+
+.hero-image {
+    flex: 1;
+
+    height: 100%;
+}
+
+
+/* ============================================================
+   HOME HERO
+============================================================ */
+
+.home-hero {
+    height: 80vh;
+
+    display: flex;
+
+    background-image: url("/images/WhaleImage.jpg");
+
+    background-repeat: no-repeat;
+
+    background-position: center;
+
+    background-size: cover;
+}
+
+.home-hero h1 {
+    margin-top: 150px;
+    margin-left: 15%;
+
+    font-size: 5rem;
+}
+
+
+/* ============================================================
+   PHOTOGRAPHY HERO
+============================================================ */
+
+.photography-hero {
+    height: 100vh;
+
+    display: flex;
+
+    background-image: url("/images/bear.jpg");
+
+    background-repeat: no-repeat;
+
+    background-position: center;
+
+    background-size: cover;
+}
+
+.photography-hero h1 {
+    margin-top: 150px;
+    margin-left: 15%;
+
+    font-size: 5rem;
+}
+
+
+/* ============================================================
+   DECORATIVE DOT
+============================================================ */
+
+.dot {
+    font-family: 'Times New Roman', Times, serif;
+
+    color: var(--color-accent);
+
+    font-size: 200%;
+}
+
+
+/* ============================================================
+   GENERAL SECTIONS
+============================================================ */
+
+.section {
+    padding: 1rem 2rem;
+
+    display: flex;
+
+    justify-content: flex-start;
+}
+
+.section.right {
+    justify-content: flex-end;
+}
+
+
+/* ============================================================
+   CONTENT BOX
+============================================================ */
+
+.content-box {
+    position: relative;
+
+    width: 100%;
+    max-width: 1200px;
+}
+
+
+/* Background box */
+
+.background-box {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 50%;
+    height: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: var(--color-background-box);
+
+    z-index: 0;
+}
+
+
+/* Content */
+
+.content-box .content {
+    position: relative;
+
+    z-index: 1;
+
+    color: var(--color-white);
+}
+
+
+/* Content heading */
+
+.content-box .content h2 {
+    margin-bottom: 2rem;
+
+    font-size: 2rem;
+}
+
+
+/* Right heading */
+
+.contentRightH2 {
+    margin-bottom: 2rem;
+
+    font-size: 2rem;
+
+    text-align: right;
+}
+
+
+/* ============================================================
+   IMAGE GRID
+============================================================ */
+
+.image-grid {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+
+    gap: 1.5rem;
+}
+
+
+/* ============================================================
+   CARD
+============================================================ */
+
+.card {
+    width: 30%;
+
+    display: block;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    color: inherit;
+
+    background: transparent;
+}
+
+.card img {
+    width: 100%;
+    height: 300px;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    margin-bottom: 0.5rem;
+}
+
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+
+.button-container {
+    margin-top: 2rem;
+
+    text-align: left;
+}
+
+.button-container-right {
+    margin-top: 2rem;
+
+    text-align: right;
+}
+
+button {
+    padding: 0.75rem 2rem;
+
+    border: none;
+
+    border-radius: 20px;
+
+    background: var(--color-button);
+
+    color: var(--color-white);
+
+    cursor: pointer;
+
+    font-family: var(--font-body);
+
+    font-weight: bold;
+}
+
+
+/* ============================================================
+   MAIN CONTENT
+============================================================ */
+
+main {
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 2rem;
+}
+
+
+/* ============================================================
+   ROW / COLUMNS
+============================================================ */
+
+.row {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 2rem;
+
+    margin-bottom: 3rem;
+}
+
+.column {
+    flex: 1;
+
+    min-width: 300px;
+}
+
+.column img {
+    width: 100%;
+    height: auto;
+
+    display: block;
+}
+
+.column h2 {
+    margin-bottom: 1rem;
+
+    font-size: 1rem;
+}
+
+
+/* ============================================================
+   TABLET
+============================================================ */
+
+@media (max-width: 1000px) {
+
+    .split-page {
+        width: min(900px, calc(100% - 120px));
+
+        gap: 2rem;
+    }
+
+    .text-scroll-area,
+    .model-sticky-area {
+        width: 50%;
+    }
+}
+
+
+/* ============================================================
+   MOBILE / TABLET
+============================================================ */
+
+@media (max-width: 768px) {
+
+    /* ----------------------------------------
+       IMAGE GRID
+    ---------------------------------------- */
+
+    .image-grid {
+        justify-content: space-between;
+    }
+
+    .card {
+        width: calc(50% - 0.75rem);
+    }
+
+    .card img {
+        height: 220px;
     }
 
 
-    .hero {
-        margin-top: 0;
+    /* ----------------------------------------
+       ROWS
+    ---------------------------------------- */
+
+    .row {
+        flex-direction: column;
+    }
+
+
+    /* ----------------------------------------
+       HOME HERO
+    ---------------------------------------- */
+
+    .home-hero h1 {
+        margin-top: 150px;
+        margin-left: 15%;
+
+        font-size: 2.5rem;
+    }
+
+
+    /* ----------------------------------------
+       PHOTOGRAPHY HERO
+    ---------------------------------------- */
+
+    .photography-hero h1 {
+        margin-top: 150px;
+        margin-left: 2%;
+
+        font-size: 3rem;
+    }
+}
+
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media (max-width: 700px) {
+
+    /* ----------------------------------------
+       GLOBAL
+    ---------------------------------------- */
+
+    html,
+    body {
+        overflow: hidden;
+    }
+
+
+    /* ----------------------------------------
+       NAVIGATION
+    ---------------------------------------- */
+
+    nav {
+        padding: 1rem;
+    }
+
+    nav ul {
+        align-items: center;
+
+        padding-right: 0;
+    }
+
+    nav a {
+        font-size: 1.5rem;
+    }
+
+
+    /* ----------------------------------------
+       TIMELINE
+    ---------------------------------------- */
+
+    .timeline {
+        left: 1rem;
+
+        gap: 1rem;
+    }
+
+    .timeline-label {
+        display: none;
+    }
+
+
+    /* ----------------------------------------
+       SPLIT PAGE
+    ---------------------------------------- */
+
+    .split-page,
+    .split-page.reverse {
+        width: 100%;
+        height: 100%;
+
+        margin: 0;
+
+        padding-top: 80px;
+
         display: flex;
-        min-height: 10vh;
-        max-height: 20vh;
-        padding: 0;
+
+        flex-direction: column;
+
+        justify-content: flex-start;
+        align-items: center;
+
+        gap: 0;
+
+        overflow-y: auto;
     }
 
-    .hero-text {
-        flex: 1;
-        padding: 4rem 2rem;
+
+    /* ----------------------------------------
+       MODEL
+    ---------------------------------------- */
+
+    .model-sticky-area {
+        width: 100%;
+
+        height: 50vh;
+        min-height: 350px;
+
+        position: relative;
+
+        top: auto;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
     }
 
-    .hero-image {
-        flex: 1;
+    model-viewer {
+        width: 100%;
         height: 100%;
     }
 
 
+    /* ----------------------------------------
+       TEXT
+    ---------------------------------------- */
 
- /* SECTION LAYOUT */
-.section {
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: flex-start;
-}
-.section.right {
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: flex-end;
-}
+    .text-scroll-area {
+        width: 100%;
+        max-width: 650px;
 
-.content-box {
-  position: relative;
-  max-width: 1200px;
-  width: 100%;
-}
+        height: auto;
+        min-height: 50vh;
 
-.background-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: 50%;
-  background: #72898a;
-  z-index: 0;
-}
+        padding: 3rem 2rem 6rem;
 
-.content {
-  position: relative;
-  z-index: 1;
-  color: #fff;
-}
+        overflow: visible;
 
-.content h2 {
-  margin-bottom: 2rem;
-  font-size: 2rem;
-}
-.contentRightH2 {
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  text-align: right;
-}
+        display: block;
+    }
 
-/* IMAGE GRID */
-.image-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: space-between;
+    .section-text {
+        font-size: 2rem;
+    }
+
+    .section-copy {
+        font-size: 1rem;
+
+        margin-bottom: 3rem;
+    }
+
+
+    /* ----------------------------------------
+       FULL PAGE
+    ---------------------------------------- */
+
+    .full-page {
+        padding: 2rem 4rem;
+    }
+
+    .page-title {
+        font-size: 2.2rem;
+
+        margin-bottom: 1.5rem;
+    }
+
+    .page-subtitle {
+        font-size: 1rem;
+    }
 }
 
-/* CARD (LINK) */
-.card {
-  width: 30%;
-  text-decoration: none;
-  color: inherit;
-  background: transparent;
-  text-align: center;
-  display: block;
-}
 
-.card img {
-  width: 100%;
-  height: 300px;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-  margin-bottom: 0.5rem;
-}
+/* ============================================================
+   VERY SMALL PHONES
+============================================================ */
 
-/* BUTTON */
-.button-container {
-  text-align: left;
-  margin-top: 2rem;
-}
-.button-container-right {
-  text-align: right;
-  margin-top: 2rem;
-}
+@media (max-width: 450px) {
 
-button {
-  padding: 0.75rem 2rem;
-  border: none;
-  background: #3a6562;
-  border-radius: 20px;
-  color: #ffffff;
-  cursor: pointer;
-  font-weight: bold;
-}
+    /* ----------------------------------------
+       MODEL
+    ---------------------------------------- */
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .image-grid {
-    justify-content: space-between;
-  }
+    .model-sticky-area {
+        height: 45vh;
 
-  .card {
-    width: calc(50% - 0.75rem);
-  }
+        min-height: 280px;
+    }
 
-  .card img {
-    height: 220px;
-  }
-}
-    /* Header */
-header {
-  font-family: var(--font-display);
-  padding-top: 100px;
-  padding-bottom: 30px;
-  text-align: left;
-  background-color: #f0f4e4;
-}
 
-header h1 {
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
-}
+    /* ----------------------------------------
+       TEXT
+    ---------------------------------------- */
 
-/* Main content */
-main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
+    .text-scroll-area {
+        padding: 2rem 1.5rem 5rem;
+    }
 
-/* Row for two columns */
-.row {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap; /* Allows stacking on small screens */
-}
+    .section-text {
+        font-size: 1.8rem;
+    }
 
-/* Columns */
-.column {
-  flex: 1;
-  min-width: 300px; /* Prevents columns from getting too narrow */
-}
+    .section-copy {
+        font-size: 0.95rem;
+    }
 
-/* Images in column */
-.column img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
 
-/* Section headings */
-.column h2 {
-  margin-bottom: 1rem;
-  font-size: 1rem;
-}
+    /* ----------------------------------------
+       FULL PAGE
+    ---------------------------------------- */
 
-/* Responsive stacking (optional for smaller devices) */
-@media (max-width: 768px) {
-  .row {
-    flex-direction: column;
-  }
-}
-.home-hero {
-/* Only bottom-left corner */
-  height: 80vh;              
-  display: flex;              
-  background-image: url(/images/WhaleImage.jpg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-.home-hero h1 {
-   margin-top: 150px;
-   margin-left: 15%;
-   font-size: 5rem;
-}
-.dot {
-  font-family:'Times New Roman', Times, serif;
-  color: #417cc0;
-  font-size: 200%;
-}
-
-.photography-hero {
-  height: 100vh;              /* Full viewport height */
-  display: flex;              
-  background-image: url(/images/bear.jpg);
-  background-repeat: no-repeat;   /* Prevent the image from repeating */
-  background-position: center;    /* Center the image */
-  background-size: cover;         /* Make the image cover the entire section */
-}
-.photography-hero h1 {
-   margin-top: 150px;
-   margin-left: 15%;
-   font-size: 5rem;
-}
-.dot {
-  font-family:'Times New Roman', Times, serif;
-  color: #417cc0;
-  font-size: 200%;
-}
-@media (max-width: 768px) {
-
-  .photography-hero h1 {
-   margin-top: 150px;
-   margin-left: 2%;
-   font-size: 3rem;
-  }
-  .home-hero h1 {
-   margin-top: 150px;
-   margin-left: 15%;
-   font-size: 2.5rem;
-}
+    .full-page {
+        padding: 2rem 3rem;
+    }
 }
