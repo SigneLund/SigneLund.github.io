@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Scroll Transition Pages</title>
+    <title>Signe Lund Nissen</title>
 
     <!-- Model Viewer -->
     <script
@@ -20,7 +20,112 @@
     >
     <link rel="stylesheet" href="styles.css">
     <style>
+.startPage {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 5px 16px 0 16px;
+}
 
+
+/* =========================
+   TITLE
+   ========================= */
+
+.startPage .page-title {
+    position: absolute;
+    top: 5px;
+    left: 16px;
+
+    font-size: 38px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   SUBTITLE
+   ========================= */
+
+.startPage .page-subtitle {
+    position: absolute;
+    top: 184px;
+    left: 16px;
+
+    text-align: left;
+    font-size: 20px;
+    line-height: 1.15;
+}
+
+
+/* =========================
+   SKILLS
+   ========================= */
+
+.startPage .pageContent {
+    position: absolute;
+    top: 184px;
+    right: 22px;
+
+    text-align: right;
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+
+/* =========================
+   IMAGE GALLERY
+   ========================= */
+.start-gallery {
+    padding-right: 150px;
+    background: #a3bdc7;
+    position: absolute;
+    left: -0.6%;
+    right: 14%;
+    bottom: 29px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    align-items: end;
+}
+
+@media (max-width: 800px) {
+    .start-gallery {
+        left: 0;
+        right: 0;
+        width: 100vw;
+        padding-right: 0;
+    }
+
+}
+/* =========================
+   IMAGES
+   ========================= */
+
+.start-image {
+    width: 100%;
+    height: 260px;
+
+    overflow: hidden;
+
+    background: #dddddd00;
+}
+
+.start-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+.hover-video {
+    width: 500px;
+    height: 300px;
+
+    object-fit: cover;
+    object-position: bottom center;
+}
 
     </style>
 </head>
@@ -106,7 +211,7 @@
             <div class="timeline-dot"></div>
 
             <div class="timeline-label">
-                Interior Design
+                Production Technology
             </div>
 
         </div>
@@ -117,7 +222,7 @@
             <div class="timeline-dot"></div>
 
             <div class="timeline-label">
-                Product Technology
+                Interior Design
             </div>
 
         </div>
@@ -158,18 +263,67 @@
 
         <div class="content active" id="contentHome">
 
-            <div class="full-page">
+            <div class="full-page" style="padding: 0rem;">
+                <div class="startPage">
 
-                <div class="page-title">
-                    Signe Lund Nissen
-                </div>
+    <!-- LEFT HEADER -->
+    <div class="start-page-title">
+        Signe Lund Nissen
+    </div>
 
-                <div class="page-subtitle">
-                    Welcome to our creative portfolio.
-                    Explore our work across interior design,
-                    product technology, photography, and more.
-                </div>
+    <div class="page-subtitle" style="font-size: 15px;">
+        Interior Designer
+        <br>
+        Production Technology Student
+    </div>
 
+
+    <!-- RIGHT SKILLS -->
+    <div class="pageContent">
+        <div>SolidWorks</div>
+        <div>Photography</div>
+        <div>Design</div>
+        <div>Production planning</div>
+    </div>
+
+
+    <!-- IMAGE GALLERY -->
+    <div class="start-gallery">
+
+<div class="start-image">
+    <a href="productTechnology.html" title="Production Technology">
+        <!-- <img src="images/assemble.png" alt="" title="Production Technology"> -->
+        <model-viewer
+            id="model"
+            src="models/ass_2.glb"
+            camera-orbit="0deg 75deg 105%"
+            field-of-view="30deg"
+            
+            shadow-intensity="1.5"
+            exposure="0.7">
+        </model-viewer>
+    </a>
+</div>
+
+<div class="start-image">
+    <a href="interiorDesign.html">
+        <img src="autocad/room.png" alt="" title="Interior Design">
+    </a>
+</div>
+
+<div class="start-image">
+<a href="photography.html" class="video-link" title="Photography">
+    <video class="hover-video" muted loop playsinline preload="metadata">
+        <source src="videos/birds.mp4" type="video/mp4">
+    </video>
+</a>
+</div>
+
+
+
+    </div>
+
+</div>
             </div>
 
         </div>
@@ -237,12 +391,11 @@
 
         <div class="content" id="contentProductTechnology">
 
-            <div class="full-page" style="    background-image: url(autocad/big.png);
+            <div class="full-page" style="background-image: url(autocad/big.png);
                 background-repeat: no-repeat;
-                background-size: 84%;
-                    background-position: 318% -433%;
+                
                 align-items: start;
-                padding: 8rem;">
+                padding-left: 7rem;">
 
                 <div class="page-title" style="text-align: left; color: #92a7af;">
                     Interior Design
@@ -313,11 +466,82 @@
 
     </div>
 
-
+<footer>
+    <span>+45 30688203</span>
+    <span>signe_nissne@me.com</span>
+</footer>
     <!-- ============================================================
          JAVASCRIPT
     ============================================================ -->
     <script src="js.js"></script>
+    <script>
+    const video = document.querySelector('.hover-video');
+
+    video.addEventListener('mouseenter', () => {
+        video.play();
+    });
+
+    video.addEventListener('mouseleave', () => {
+        video.pause();
+        video.currentTime = 0;
+    });
+</script>
+    <script>
+
+
+
+                const model = document.getElementById("model");
+
+        // Normal position
+        let currentX = 0;
+        let currentY = 0;
+
+        // Target position
+        let targetX = 0;
+        let targetY = 0;
+
+        // =====================================================
+        // HOVER
+        // =====================================================
+
+        model.addEventListener("mouseenter", () => {
+
+            targetX = 20;
+            targetY = 30;
+
+        });
+
+
+        // =====================================================
+        // UNHOVER
+        // =====================================================
+
+        model.addEventListener("mouseleave", () => {
+
+            targetX = 0;
+            targetY = 0;
+
+        });
+
+
+        // =====================================================
+        // SMOOTH ANIMATION
+        // =====================================================
+
+        function animate() {
+
+            requestAnimationFrame(animate);
+
+            currentX += (targetX - currentX) * 0.08;
+            currentY += (targetY - currentY) * 0.08;
+
+            model.cameraOrbit =
+                `${currentY}deg ${75 + currentX}deg 105%`;
+
+        }
+
+        animate();
+    </script>
     <script>
 
 

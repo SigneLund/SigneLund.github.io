@@ -61,6 +61,7 @@ h3,
 h4,
 h5,
 h6,
+.start-page-title,
 .page-title,
 .section-text {
     font-family: var(--font-display);
@@ -85,7 +86,9 @@ header h1 {
 
     margin-bottom: 1rem;
 }
-
+.start-page-title {
+    font-size: clamp(15px, 10vw, 6rem);
+}
 
 /* ============================================================
    NAVIGATION
@@ -375,7 +378,7 @@ nav a {
     justify-content: center;
     align-items: center;
 
-    padding: 2rem;
+    padding: 0.5rem;
 }
 
 
@@ -878,7 +881,9 @@ main {
         height: 220px;
     }
 
-
+     {
+        padding: 2.5rem;
+    }
     /* ----------------------------------------
        ROWS
     ---------------------------------------- */
@@ -1106,5 +1111,50 @@ main {
 
     .full-page {
         padding: 2rem 3rem;
+    }
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 25px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 15px;
+    padding: 0 20px;
+    box-sizing: border-box;
+
+    background: #11111100;
+
+    z-index: 1000;
+}
+
+/* Animated top border */
+footer::before {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 60%;
+    height: 1px;
+
+    background: #111;
+
+    animation: footerBorder 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes footerBorder {
+    0% {
+        left: -60%;
+    }
+
+    100% {
+        left: 75%;
     }
 }

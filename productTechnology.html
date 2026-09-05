@@ -53,14 +53,14 @@ body::-webkit-scrollbar {
     .model-text.visible { opacity: 1; }
 
     .model-text.right {
-      right: 8%;
+      right: 14%;
       left: auto;
       transform: translateY(-50%);
       text-align: left;
     }
 
     .model-text.left {
-      left: 8%;
+      left: 18%;
       right: auto;
       transform: translateY(-50%);
       text-align: left;
@@ -87,6 +87,28 @@ body::-webkit-scrollbar {
       font-size: 1.1rem;
       color: #1f1f1f;
     }
+
+    .certificates {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.certificates img {
+    width: 400px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Stack them on smaller screens */
+@media (max-width: 1000px) {
+    .certificates {
+        flex-direction: column;
+        align-items: center;
+    }
+}
   </style>
 </head>
 <body style="background:#a3bdc7;">
@@ -104,31 +126,38 @@ body::-webkit-scrollbar {
 
   <main style="background:#a3bdc7;max-width:100%;padding:0;">
     <section style="padding: 100px 20%;">
-      <header style="background:#a3bdc7;"><h1>Product Technology</h1></header>
+      <header style="background:#a3bdc7; padding-top: 20px;"><h1 style="color: #533737; ">Product Technology</h1></header>
 
       <div class="row">
         <div class="column">
-          <h2>Lorem Ipsum Dolor</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <p>Pulvinar vivamus fringilla lacus nec metus bibendum egestas.</p>
+          <h2>What is it?</h2>
+          <p>Beskrivelse af hvad productions teknolog er</p>
+          
+
         </div>
         <div class="column">
-          <h2>Lorem Ipsum Dolor</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <p>Iaculis massa nisl malesuada lacinia integer nunc posuere.</p>
+          <h2>SolidWorks drawings</h2>
+          <p>During the process of designing the model, we ligewise use Solidworks to document all of the parts of the product.</p>
+          
+
         </div>
       </div>
 
       <div class="row">
         <div class="column">
-          <h2>Lorem Ipsum Dolor</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <p>Ut hendrerit semper vel class aptent taciti sociosqu.</p>
+          <h2>Strength Calculation</h2>
+          <p>As part of my degree in Production Technology i have learned to calculate how much a construction can withhold. We did this first in hand and later as a FEA (Finite Element Analysis) in SolidWorks. 
+          By using Granta EduPack it was possible to set the needed boundaries and pick a handful of materials and then deciding on one material by using the Ashby’s method. 
+          </p>
+          
+          <img src="images/solidworks/styrke.png" alt="">
         </div>
         <div class="column" style="height:500px;">
-          <img src="images\assemble.png" alt="">
+          <img src="images\chairBlueprint.png" alt="">
         </div>
       </div>
+
+      
     </section>
 
     <section class="model-section" id="modelSection">
@@ -145,11 +174,23 @@ body::-webkit-scrollbar {
     </section>
 
     <section class="after-model">
-      <h2>Innovation Beyond Form</h2>
-      <p>Every curve, surface, and material is engineered to merge aesthetics with function.</p>
-      <p>From first concept to final finish, each detail is shaped with intention.</p>
+      <h2>What have i learned so far?</h2>
+      <p>hvad har jeg lært?</p>
+      <p>Hvad kan jeg bruge det til i perspektiv til andet? 3D development, 3D design til interior design, 3D visualization? i perspektiv til billeder? Produktions teknolog i forhold til masse produktion og forståelse af business modeller i sammenhæng med den virkelige verden
+        bred forståelse for forskellige produkter og hvad der skal til for at kunne sætte ide til virkelighed.
+      </p>
+
+      <div class="certificates">
+    <img src="images/assemble.png" alt="">
+    <img src="images/certificates/solidworksCertificate.png" alt="">
+    <img src="images/solidworks/something.png" alt="">
+</div>
     </section>
   </main>
+<footer>
+    <span>+45 30688203</span>
+    <span>signe_nissne@me.com</span>
+</footer>
   <script src="js.js"></script>
   <script>
     const modelSection = document.getElementById("modelSection");
