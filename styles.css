@@ -78,7 +78,7 @@ header {
 
     text-align: left;
 
-    background-color: #fff;
+    
 }
 
 header h1 {
@@ -854,6 +854,7 @@ main {
 
     .text-scroll-area,
     .model-sticky-area {
+        display: none;
         width: 50%;
     }
 }
@@ -928,11 +929,10 @@ main {
        GLOBAL
     ---------------------------------------- */
 
-    html,
-    body {
-        overflow: hidden;
-    }
 
+    .model-sticky-area {
+        display: none;
+    }
 
     /* ----------------------------------------
        NAVIGATION
@@ -1083,7 +1083,7 @@ main {
 
     .model-sticky-area {
         height: 45vh;
-
+        display: none;
         min-height: 280px;
     }
 
@@ -1093,7 +1093,7 @@ main {
     ---------------------------------------- */
 
     .text-scroll-area {
-        padding: 2rem 1.5rem 5rem;
+        padding: 5rem 2.5rem 6rem;
     }
 
     .section-text {

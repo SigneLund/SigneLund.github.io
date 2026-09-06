@@ -101,14 +101,20 @@ body::-webkit-scrollbar {
     max-width: 100%;
     height: auto;
 }
-
+.topPart{
+  padding: 100px 20%;
+}
 /* Stack them on smaller screens */
 @media (max-width: 1000px) {
     .certificates {
         flex-direction: column;
         align-items: center;
     }
+    .topPart{
+      padding: 100px 4%;
+    }
 }
+
   </style>
 </head>
 <body style="background:#a3bdc7;">
@@ -125,7 +131,7 @@ body::-webkit-scrollbar {
   </nav>
 
   <main style="background:#a3bdc7;max-width:100%;padding:0;">
-    <section style="padding: 100px 20%;">
+    <section class="topPart">
       <header style="background:#a3bdc7; padding-top: 20px;"><h1 style="color: #533737; ">Product Technology</h1></header>
 
       <div class="row">
