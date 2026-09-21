@@ -1,0 +1,2187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Node Editor</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+
+            background: #181818;
+            color: white;
+
+            font-family: Arial, sans-serif;
+        }
+
+
+        /*
+         * =========================================================
+         * VIEWPORT
+         * =========================================================
+         */
+
+        #viewport {
+            position: absolute;
+
+            inset: 0;
+
+            overflow: hidden;
+
+            cursor: grab;
+        }
+
+        #viewport.panning {
+            cursor: grabbing;
+        }
+
+
+        /*
+         * =========================================================
+         * CANVAS
+         * =========================================================
+         */
+
+        #canvas {
+            position: absolute;
+
+            width: 5000px;
+            height: 5000px;
+
+            transform-origin: 0 0;
+        }
+
+
+        /*
+         * =========================================================
+         * GRID
+         * =========================================================
+         */
+
+        #canvas::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.04) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.04) 1px,
+                    transparent 1px
+                );
+
+            background-size: 40px 40px;
+
+            pointer-events: none;
+        }
+
+
+        /*
+         * =========================================================
+         * SVG CONNECTION LAYER
+         * =========================================================
+         */
+
+        #connections {
+
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            pointer-events: none;
+
+            overflow: visible;
+
+            z-index: 1;
+        }
+
+
+        .connection {
+
+            stroke: #2ecc71;
+
+            stroke-width: 3;
+
+            fill: none;
+
+            pointer-events: stroke;
+
+            cursor: pointer;
+        }
+
+
+        .connection:hover {
+
+            stroke: #ffffff;
+
+            stroke-width: 5;
+        }
+
+
+        .temporary-connection {
+
+            stroke: #888;
+
+            stroke-width: 3;
+
+            stroke-dasharray: 8 6;
+
+            fill: none;
+        }
+
+
+        /*
+         * =========================================================
+         * NODE
+         * =========================================================
+         */
+
+        .node {
+
+            position: absolute;
+
+            width: 180px;
+            min-height: 110px;
+
+            background: #292929;
+
+            border: 2px solid #555;
+
+            border-radius: 8px;
+
+            z-index: 2;
+
+            user-select: none;
+        }
+
+
+        .node-header {
+
+            padding: 8px 10px;
+
+            background: #333;
+
+            border-radius: 6px 6px 0 0;
+
+            cursor: grab;
+
+            font-weight: bold;
+        }
+
+
+        .node-header:active {
+
+            cursor: grabbing;
+        }
+
+
+        /*
+         * =========================================================
+         * NODE BODY
+         * =========================================================
+         */
+
+        .node-body {
+
+            padding: 10px;
+        }
+
+
+        .node-name {
+
+            width: 100%;
+
+            margin-bottom: 8px;
+
+            padding: 5px 7px;
+
+            background: #202020;
+
+            color: white;
+
+            border: 1px solid #555;
+
+            border-radius: 4px;
+
+            outline: none;
+        }
+
+
+        .node-text {
+
+            width: 100%;
+
+            min-height: 55px;
+
+            resize: vertical;
+
+            padding: 6px;
+
+            background: #202020;
+
+            color: white;
+
+            border: 1px solid #555;
+
+            border-radius: 4px;
+
+            outline: none;
+
+            font-family: inherit;
+        }
+
+
+        .node-name:focus,
+        .node-text:focus {
+
+            border-color: #888;
+        }
+
+
+        /*
+         * =========================================================
+         * PORT CONTAINERS
+         * =========================================================
+         */
+
+        .inputs,
+        .outputs {
+
+            position: absolute;
+
+            top: 40px;
+            bottom: 10px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-around;
+
+            gap: 7px;
+        }
+
+
+        .inputs {
+
+            left: -11px;
+        }
+
+
+        .outputs {
+
+            right: -11px;
+        }
+
+
+        /*
+         * =========================================================
+         * PORT
+         * =========================================================
+         */
+
+        .port {
+
+            width: 20px;
+            height: 20px;
+
+            border-radius: 50%;
+
+            border: 2px solid white;
+
+            cursor: crosshair;
+
+            flex-shrink: 0;
+
+            z-index: 5;
+        }
+
+
+        .input {
+
+            background: #3498db;
+        }
+
+
+        .output {
+
+            background: #2ecc71;
+        }
+
+
+        /*
+         * Free port.
+         */
+
+        .port.free {
+
+            background: #555;
+        }
+
+
+        /*
+         * Selected output.
+         */
+
+        .output.selected {
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(255,255,255,0.25);
+        }
+
+
+        /*
+         * =========================================================
+         * CONTROLS
+         * =========================================================
+         */
+
+        #controls {
+
+            position: absolute;
+
+            top: 20px;
+            left: 20px;
+
+            z-index: 100;
+
+            background: #292929;
+
+            border: 1px solid #444;
+
+            border-radius: 7px;
+
+            padding: 12px;
+
+            user-select: none;
+        }
+
+
+        #controls button {
+
+            background: #3a3a3a;
+
+            color: white;
+
+            border: 1px solid #555;
+
+            border-radius: 4px;
+
+            padding: 6px 10px;
+
+            margin-right: 4px;
+
+            cursor: pointer;
+        }
+
+
+        #controls button:hover {
+
+            background: #4a4a4a;
+        }
+
+
+        #zoom {
+
+            margin-left: 10px;
+
+            color: #aaa;
+        }
+
+
+        #instructions {
+
+            margin-top: 8px;
+
+            color: #aaa;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<div id="viewport">
+
+    <div id="canvas">
+
+        <svg id="connections">
+
+            <defs>
+
+                <marker
+                    id="arrow"
+                    markerWidth="10"
+                    markerHeight="10"
+                    refX="8"
+                    refY="3"
+                    orient="auto"
+                    markerUnits="strokeWidth">
+
+                    <path
+                        d="M0,0 L0,6 L9,3 z"
+                        fill="#2ecc71">
+                    </path>
+
+                </marker>
+
+            </defs>
+
+        </svg>
+
+    </div>
+
+</div>
+
+
+<div id="controls">
+
+    <button id="zoomOut">−</button>
+
+    <button id="zoomIn">+</button>
+
+    <button id="resetView">Reset view</button>
+
+    <span id="zoom">100%</span>
+
+    <div id="instructions">
+
+        🟢 Output → 🔵 Input<br>
+        🖱 Drag nodes to move them<br>
+        🖱 Drag background to pan<br>
+        🔍 Mouse wheel to zoom<br>
+        🔗 Click a wire to remove it
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+     * =========================================================
+     * NODE DATA
+     * =========================================================
+     */
+
+    const nodes = {
+
+        node1: {
+
+            x: 200,
+            y: 300,
+
+            name: "node1",
+
+            text: "First node"
+        },
+
+        node2: {
+
+            x: 550,
+            y: 150,
+
+            name: "node2",
+
+            text: "Second node"
+        },
+
+        node3: {
+
+            x: 550,
+            y: 450,
+
+            name: "node3",
+
+            text: "Third node"
+        }
+
+    };
+
+
+    /*
+     * =========================================================
+     * CONNECTION DATA
+     * =========================================================
+     */
+
+    const connections = [];
+
+
+    /*
+     * =========================================================
+     * PORT ID
+     * =========================================================
+     */
+
+    let portCounter = 0;
+
+
+    /*
+     * =========================================================
+     * SELECTED OUTPUT
+     * =========================================================
+     */
+
+    let selectedOutput = null;
+
+
+    /*
+     * =========================================================
+     * DRAGGING NODE
+     * =========================================================
+     */
+
+    let draggingNode = null;
+
+    let nodeOffsetX = 0;
+    let nodeOffsetY = 0;
+
+
+    /*
+     * =========================================================
+     * PANNING / ZOOM
+     * =========================================================
+     */
+
+    let scale = 1;
+
+    let panX = 0;
+    let panY = 0;
+
+    let panning = false;
+
+    let panStartX = 0;
+    let panStartY = 0;
+
+    let originalPanX = 0;
+    let originalPanY = 0;
+
+
+    /*
+     * =========================================================
+     * MOUSE POSITION
+     * =========================================================
+     */
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+
+    /*
+     * =========================================================
+     * CREATE NODE
+     * =========================================================
+     */
+
+    function createNode(id) {
+
+        const data = nodes[id];
+
+        const node =
+            document.createElement("div");
+
+        node.className = "node";
+
+        node.id = id;
+
+        node.style.left =
+            data.x + "px";
+
+        node.style.top =
+            data.y + "px";
+
+
+        /*
+         * Header
+         */
+
+        const header =
+            document.createElement("div");
+
+        header.className =
+            "node-header";
+
+        header.textContent =
+            data.name;
+
+
+        node.appendChild(header);
+
+
+        /*
+         * Body
+         */
+
+        const body =
+            document.createElement("div");
+
+        body.className =
+            "node-body";
+
+
+        /*
+         * Name input
+         */
+
+        const nameInput =
+            document.createElement("input");
+
+        nameInput.className =
+            "node-name";
+
+        nameInput.value =
+            data.name;
+
+        nameInput.addEventListener(
+            "input",
+            () => {
+
+                data.name =
+                    nameInput.value;
+
+                header.textContent =
+                    nameInput.value;
+            }
+        );
+
+
+        body.appendChild(
+            nameInput
+        );
+
+
+        /*
+         * Text
+         */
+
+        const text =
+            document.createElement("textarea");
+
+        text.className =
+            "node-text";
+
+        text.value =
+            data.text;
+
+        text.placeholder =
+            "Node text...";
+
+
+        text.addEventListener(
+            "input",
+            () => {
+
+                data.text =
+                    text.value;
+            }
+        );
+
+
+        body.appendChild(
+            text
+        );
+
+
+        node.appendChild(body);
+
+
+        /*
+         * Input container
+         */
+
+        const inputs =
+            document.createElement("div");
+
+        inputs.className =
+            "inputs";
+
+        inputs.dataset.node =
+            id;
+
+
+        node.appendChild(
+            inputs
+        );
+
+
+        /*
+         * Output container
+         */
+
+        const outputs =
+            document.createElement("div");
+
+        outputs.className =
+            "outputs";
+
+        outputs.dataset.node =
+            id;
+
+
+        node.appendChild(
+            outputs
+        );
+
+
+        document
+            .getElementById("canvas")
+            .appendChild(node);
+
+
+        /*
+         * Always start with one
+         * free input and output.
+         */
+
+        addInput(id);
+
+        addOutput(id);
+
+
+        /*
+         * Dragging is only done
+         * from the header.
+         */
+
+        header.addEventListener(
+            "pointerdown",
+            event => {
+
+                startNodeDrag(
+                    event,
+                    node
+                );
+            }
+        );
+    }
+
+
+    /*
+     * =========================================================
+     * ADD INPUT
+     * =========================================================
+     */
+
+    function addInput(nodeId) {
+
+        const container =
+            document.querySelector(
+                `.inputs[data-node="${nodeId}"]`
+            );
+
+
+        const input =
+            document.createElement("div");
+
+
+        input.className =
+            "port input free";
+
+
+        input.dataset.portId =
+            "input-" +
+            (++portCounter);
+
+
+        input.dataset.node =
+            nodeId;
+
+
+        input.addEventListener(
+            "pointerdown",
+            inputClicked
+        );
+
+
+        container.appendChild(
+            input
+        );
+
+
+        return input;
+    }
+
+
+    /*
+     * =========================================================
+     * ADD OUTPUT
+     * =========================================================
+     */
+
+    function addOutput(nodeId) {
+
+        const container =
+            document.querySelector(
+                `.outputs[data-node="${nodeId}"]`
+            );
+
+
+        const output =
+            document.createElement("div");
+
+
+        output.className =
+            "port output free";
+
+
+        output.dataset.portId =
+            "output-" +
+            (++portCounter);
+
+
+        output.dataset.node =
+            nodeId;
+
+
+        output.addEventListener(
+            "pointerdown",
+            outputClicked
+        );
+
+
+        container.appendChild(
+            output
+        );
+
+
+        return output;
+    }
+
+
+    /*
+     * =========================================================
+     * OUTPUT CLICK
+     * =========================================================
+     */
+
+    function outputClicked(event) {
+
+        event.stopPropagation();
+
+
+        const output =
+            event.currentTarget;
+
+
+        /*
+         * If already selected,
+         * cancel selection.
+         */
+
+        if (
+            selectedOutput ===
+            output.dataset.portId
+        ) {
+
+            selectedOutput = null;
+
+            output.classList.remove(
+                "selected"
+            );
+
+            render();
+
+            return;
+        }
+
+
+        /*
+         * Clear previous selection.
+         */
+
+        document
+            .querySelectorAll(
+                ".output.selected"
+            )
+            .forEach(
+                element =>
+                    element.classList.remove(
+                        "selected"
+                    )
+            );
+
+
+        /*
+         * If this output already
+         * has a connection, remove it.
+         *
+         * This means clicking it again
+         * lets you rewire it.
+         */
+
+        const existing =
+            connections.find(
+                connection =>
+                    connection.output ===
+                    output.dataset.portId
+            );
+
+
+        if (existing) {
+
+            const index =
+                connections.indexOf(
+                    existing
+                );
+
+            connections.splice(
+                index,
+                1
+            );
+        }
+
+
+        selectedOutput =
+            output.dataset.portId;
+
+
+        output.classList.add(
+            "selected"
+        );
+
+
+        document.addEventListener(
+            "pointermove",
+            temporaryWire
+        );
+
+
+        render();
+    }
+
+
+    /*
+     * =========================================================
+     * INPUT CLICK
+     * =========================================================
+     */
+
+    function inputClicked(event) {
+
+        event.stopPropagation();
+
+
+        if (!selectedOutput) {
+            return;
+        }
+
+
+        let input =
+            event.currentTarget;
+
+
+        const nodeId =
+            input.dataset.node;
+
+
+        /*
+         * Is this input already occupied?
+         */
+
+        const occupied =
+            connections.some(
+                connection =>
+                    connection.input ===
+                    input.dataset.portId
+            );
+
+
+        /*
+         * If occupied:
+         *
+         * create a new input.
+         */
+
+        if (occupied) {
+
+            input =
+                addInput(nodeId);
+        }
+
+
+        /*
+         * Create connection.
+         */
+
+        connections.push({
+
+            output:
+                selectedOutput,
+
+            input:
+                input.dataset.portId
+        });
+
+
+        /*
+         * Mark input used.
+         */
+
+        input.classList.remove(
+            "free"
+        );
+
+
+        /*
+         * Find output.
+         */
+
+        const output =
+            document.querySelector(
+                `[data-port-id="${selectedOutput}"]`
+            );
+
+
+        if (output) {
+
+            output.classList.remove(
+                "selected"
+            );
+
+            output.classList.remove(
+                "free"
+            );
+        }
+
+
+        /*
+         * Make sure source node has
+         * one free output.
+         */
+
+        ensureFreeOutput(
+            output.dataset.node
+        );
+
+
+        /*
+         * Make sure target node has
+         * one free input.
+         */
+
+        ensureFreeInput(
+            nodeId
+        );
+
+
+        selectedOutput = null;
+
+
+        document.removeEventListener(
+            "pointermove",
+            temporaryWire
+        );
+
+
+        render();
+    }
+
+
+    /*
+     * =========================================================
+     * ENSURE ONE FREE INPUT
+     * =========================================================
+     */
+
+    function ensureFreeInput(nodeId) {
+
+        const inputs =
+            Array.from(
+                document.querySelectorAll(
+                    `.input[data-node="${nodeId}"]`
+                )
+            );
+
+
+        const free =
+            inputs.some(
+                input =>
+                    !connections.some(
+                        connection =>
+                            connection.input ===
+                            input.dataset.portId
+                    )
+            );
+
+
+        if (!free) {
+
+            addInput(nodeId);
+        }
+    }
+
+
+    /*
+     * =========================================================
+     * ENSURE ONE FREE OUTPUT
+     * =========================================================
+     */
+
+    function ensureFreeOutput(nodeId) {
+
+        const outputs =
+            Array.from(
+                document.querySelectorAll(
+                    `.output[data-node="${nodeId}"]`
+                )
+            );
+
+
+        const free =
+            outputs.some(
+                output =>
+                    !connections.some(
+                        connection =>
+                            connection.output ===
+                            output.dataset.portId
+                    )
+            );
+
+
+        if (!free) {
+
+            addOutput(nodeId);
+        }
+    }
+
+
+    /*
+     * =========================================================
+     * CLEAN UNUSED PORTS
+     * =========================================================
+     *
+     * This is what prevents:
+     *
+     * input input input input input...
+     *
+     * when connections are removed.
+     *
+     * We keep:
+     *
+     * used ports + exactly ONE free port.
+     * =========================================================
+     */
+
+    function cleanupPorts(nodeId) {
+
+        cleanupInputs(nodeId);
+
+        cleanupOutputs(nodeId);
+    }
+
+
+    function cleanupInputs(nodeId) {
+
+        const inputs =
+            Array.from(
+                document.querySelectorAll(
+                    `.input[data-node="${nodeId}"]`
+                )
+            );
+
+
+        const freeInputs =
+            inputs.filter(
+                input =>
+                    !connections.some(
+                        connection =>
+                            connection.input ===
+                            input.dataset.portId
+                    )
+            );
+
+
+        /*
+         * Keep exactly ONE free input.
+         */
+
+        for (
+            let i = 1;
+            i < freeInputs.length;
+            i++
+        ) {
+
+            freeInputs[i].remove();
+        }
+
+
+        /*
+         * If somehow none exists,
+         * create one.
+         */
+
+        if (freeInputs.length === 0) {
+
+            addInput(nodeId);
+        }
+    }
+
+
+    function cleanupOutputs(nodeId) {
+
+        const outputs =
+            Array.from(
+                document.querySelectorAll(
+                    `.output[data-node="${nodeId}"]`
+                )
+            );
+
+
+        const freeOutputs =
+            outputs.filter(
+                output =>
+                    !connections.some(
+                        connection =>
+                            connection.output ===
+                            output.dataset.portId
+                    )
+            );
+
+
+        /*
+         * Keep exactly ONE free output.
+         */
+
+        for (
+            let i = 1;
+            i < freeOutputs.length;
+            i++
+        ) {
+
+            freeOutputs[i].remove();
+        }
+
+
+        /*
+         * If somehow none exists,
+         * create one.
+         */
+
+        if (freeOutputs.length === 0) {
+
+            addOutput(nodeId);
+        }
+    }
+
+
+    /*
+     * =========================================================
+     * REMOVE CONNECTION
+     * =========================================================
+     */
+
+    function removeConnection(connection) {
+
+        const index =
+            connections.indexOf(
+                connection
+            );
+
+
+        if (index === -1) {
+            return;
+        }
+
+
+        const output =
+            document.querySelector(
+                `[data-port-id="${connection.output}"]`
+            );
+
+
+        const input =
+            document.querySelector(
+                `[data-port-id="${connection.input}"]`
+            );
+
+
+        const outputNode =
+            output.dataset.node;
+
+
+        const inputNode =
+            input.dataset.node;
+
+
+        connections.splice(
+            index,
+            1
+        );
+
+
+        /*
+         * Clean both sides.
+         */
+
+        cleanupPorts(
+            outputNode
+        );
+
+
+        cleanupPorts(
+            inputNode
+        );
+
+
+        render();
+    }
+
+
+    /*
+     * =========================================================
+     * NODE DRAG
+     * =========================================================
+     */
+
+    function startNodeDrag(
+        event,
+        node
+    ) {
+
+        event.stopPropagation();
+
+
+        draggingNode = node;
+
+
+        const rect =
+            node.getBoundingClientRect();
+
+
+        /*
+         * Convert mouse position
+         * back into canvas coordinates.
+         */
+
+        const canvas =
+            document.getElementById(
+                "canvas"
+            );
+
+
+        const canvasRect =
+            canvas.getBoundingClientRect();
+
+
+        nodeOffsetX =
+            (event.clientX -
+                canvasRect.left) /
+                scale -
+            parseFloat(node.style.left);
+
+
+        nodeOffsetY =
+            (event.clientY -
+                canvasRect.top) /
+                scale -
+            parseFloat(node.style.top);
+
+
+        node.setPointerCapture(
+            event.pointerId
+        );
+
+
+        node.addEventListener(
+            "pointermove",
+            moveNode
+        );
+
+
+        node.addEventListener(
+            "pointerup",
+            stopNodeDrag,
+            { once: true }
+        );
+    }
+
+
+    function moveNode(event) {
+
+        if (!draggingNode) {
+            return;
+        }
+
+
+        const canvas =
+            document.getElementById(
+                "canvas"
+            );
+
+
+        const rect =
+            canvas.getBoundingClientRect();
+
+
+        const x =
+            (event.clientX -
+                rect.left) /
+                scale -
+            nodeOffsetX;
+
+
+        const y =
+            (event.clientY -
+                rect.top) /
+                scale -
+            nodeOffsetY;
+
+
+        draggingNode.style.left =
+            x + "px";
+
+
+        draggingNode.style.top =
+            y + "px";
+
+
+        nodes[
+            draggingNode.id
+        ].x = x;
+
+
+        nodes[
+            draggingNode.id
+        ].y = y;
+
+
+        render();
+    }
+
+
+    function stopNodeDrag() {
+
+        if (!draggingNode) {
+            return;
+        }
+
+
+        draggingNode.removeEventListener(
+            "pointermove",
+            moveNode
+        );
+
+
+        draggingNode = null;
+    }
+
+
+    /*
+     * =========================================================
+     * TEMPORARY WIRE
+     * =========================================================
+     */
+
+    function temporaryWire(event) {
+
+        mouseX =
+            event.clientX;
+
+        mouseY =
+            event.clientY;
+
+
+        render();
+    }
+
+
+    /*
+     * =========================================================
+     * PORT POSITION
+     * =========================================================
+     */
+
+    function getPortPosition(
+        port
+    ) {
+
+        const rect =
+            port.getBoundingClientRect();
+
+
+        const canvas =
+            document.getElementById(
+                "canvas"
+            );
+
+
+        const canvasRect =
+            canvas.getBoundingClientRect();
+
+
+        return {
+
+            x:
+                (rect.left -
+                    canvasRect.left +
+                    rect.width / 2) /
+                scale,
+
+            y:
+                (rect.top -
+                    canvasRect.top +
+                    rect.height / 2) /
+                scale
+        };
+    }
+
+
+    /*
+     * =========================================================
+     * CURVED WIRE
+     * =========================================================
+     */
+
+    function createPath(
+        start,
+        end
+    ) {
+
+        const distance =
+            Math.abs(
+                end.x - start.x
+            );
+
+
+        const curve =
+            Math.max(
+                80,
+                distance / 2
+            );
+
+
+        return `
+            M ${start.x} ${start.y}
+
+            C
+                ${start.x + curve} ${start.y},
+                ${end.x - curve} ${end.y},
+                ${end.x} ${end.y}
+        `;
+    }
+
+
+    /*
+     * =========================================================
+     * RENDER CONNECTIONS
+     * =========================================================
+     */
+
+    function render() {
+
+        const svg =
+            document.getElementById(
+                "connections"
+            );
+
+
+        svg.querySelectorAll(
+            ".connection, .temporary-connection"
+        ).forEach(
+            path =>
+                path.remove()
+        );
+
+
+        /*
+         * Permanent wires.
+         */
+
+        connections.forEach(
+            connection => {
+
+                const output =
+                    document.querySelector(
+                        `[data-port-id="${connection.output}"]`
+                    );
+
+
+                const input =
+                    document.querySelector(
+                        `[data-port-id="${connection.input}"]`
+                    );
+
+
+                if (!output || !input) {
+                    return;
+                }
+
+
+                const start =
+                    getPortPosition(
+                        output
+                    );
+
+
+                const end =
+                    getPortPosition(
+                        input
+                    );
+
+
+                const path =
+                    document.createElementNS(
+                        "http://www.w3.org/2000/svg",
+                        "path"
+                    );
+
+
+                path.classList.add(
+                    "connection"
+                );
+
+
+                path.setAttribute(
+                    "d",
+                    createPath(
+                        start,
+                        end
+                    )
+                );
+
+
+                path.addEventListener(
+                    "pointerdown",
+                    event => {
+
+                        event.stopPropagation();
+
+                        removeConnection(
+                            connection
+                        );
+                    }
+                );
+
+
+                svg.appendChild(
+                    path
+                );
+            }
+        );
+
+
+        /*
+         * Temporary wire.
+         */
+
+        if (selectedOutput) {
+
+            const output =
+                document.querySelector(
+                    `[data-port-id="${selectedOutput}"]`
+                );
+
+
+            if (output) {
+
+                const start =
+                    getPortPosition(
+                        output
+                    );
+
+
+                const canvas =
+                    document.getElementById(
+                        "canvas"
+                    );
+
+
+                const rect =
+                    canvas.getBoundingClientRect();
+
+
+                const end = {
+
+                    x:
+                        (mouseX -
+                            rect.left) /
+                        scale,
+
+                    y:
+                        (mouseY -
+                            rect.top) /
+                        scale
+                };
+
+
+                const path =
+                    document.createElementNS(
+                        "http://www.w3.org/2000/svg",
+                        "path"
+                    );
+
+
+                path.classList.add(
+                    "temporary-connection"
+                );
+
+
+                path.setAttribute(
+                    "d",
+                    createPath(
+                        start,
+                        end
+                    )
+                );
+
+
+                svg.appendChild(
+                    path
+                );
+            }
+        }
+
+
+        updatePorts();
+    }
+
+
+    /*
+     * =========================================================
+     * PORT COLORS
+     * =========================================================
+     */
+
+    function updatePorts() {
+
+        document
+            .querySelectorAll(
+                ".input"
+            )
+            .forEach(
+                input => {
+
+                    const used =
+                        connections.some(
+                            connection =>
+                                connection.input ===
+                                input.dataset.portId
+                        );
+
+
+                    input.classList.toggle(
+                        "free",
+                        !used
+                    );
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                ".output"
+            )
+            .forEach(
+                output => {
+
+                    const used =
+                        connections.some(
+                            connection =>
+                                connection.output ===
+                                output.dataset.portId
+                        );
+
+
+                    output.classList.toggle(
+                        "free",
+                        !used
+                    );
+                }
+            );
+    }
+
+
+    /*
+     * =========================================================
+     * PAN
+     * =========================================================
+     */
+
+    const viewport =
+        document.getElementById(
+            "viewport"
+        );
+
+
+    viewport.addEventListener(
+        "pointerdown",
+        event => {
+
+            /*
+             * Only pan when clicking
+             * the background.
+             */
+
+            if (
+                event.target !== viewport &&
+                event.target.id !== "canvas"
+            ) {
+                return;
+            }
+
+
+            panning = true;
+
+
+            viewport.classList.add(
+                "panning"
+            );
+
+
+            panStartX =
+                event.clientX;
+
+
+            panStartY =
+                event.clientY;
+
+
+            originalPanX =
+                panX;
+
+
+            originalPanY =
+                panY;
+
+
+            viewport.setPointerCapture(
+                event.pointerId
+            );
+        }
+    );
+
+
+    viewport.addEventListener(
+        "pointermove",
+        event => {
+
+            if (!panning) {
+                return;
+            }
+
+
+            panX =
+                originalPanX +
+                event.clientX -
+                panStartX;
+
+
+            panY =
+                originalPanY +
+                event.clientY -
+                panStartY;
+
+
+            updateCanvasTransform();
+        }
+    );
+
+
+    viewport.addEventListener(
+        "pointerup",
+        () => {
+
+            panning = false;
+
+            viewport.classList.remove(
+                "panning"
+            );
+        }
+    );
+
+
+    /*
+     * =========================================================
+     * ZOOM
+     * =========================================================
+     */
+
+    viewport.addEventListener(
+        "wheel",
+        event => {
+
+            event.preventDefault();
+
+
+            const oldScale =
+                scale;
+
+
+            const zoomFactor =
+                event.deltaY < 0
+                    ? 1.1
+                    : 0.9;
+
+
+            const newScale =
+                Math.min(
+                    2,
+                    Math.max(
+                        0.25,
+                        scale * zoomFactor
+                    )
+                );
+
+
+            /*
+             * Zoom around mouse position.
+             */
+
+            const rect =
+                viewport.getBoundingClientRect();
+
+
+            const mouseBeforeX =
+                (event.clientX -
+                    rect.left -
+                    panX) /
+                oldScale;
+
+
+            const mouseBeforeY =
+                (event.clientY -
+                    rect.top -
+                    panY) /
+                oldScale;
+
+
+            scale = newScale;
+
+
+            panX =
+                event.clientX -
+                rect.left -
+                mouseBeforeX * scale;
+
+
+            panY =
+                event.clientY -
+                rect.top -
+                mouseBeforeY * scale;
+
+
+            updateCanvasTransform();
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    /*
+     * =========================================================
+     * CANVAS TRANSFORM
+     * =========================================================
+     */
+
+    function updateCanvasTransform() {
+
+        const canvas =
+            document.getElementById(
+                "canvas"
+            );
+
+
+        canvas.style.transform =
+            `translate(${panX}px, ${panY}px) scale(${scale})`;
+
+
+        document.getElementById(
+            "zoom"
+        ).textContent =
+            Math.round(
+                scale * 100
+            ) + "%";
+
+
+        render();
+    }
+
+
+    /*
+     * =========================================================
+     * BUTTON ZOOM
+     * =========================================================
+     */
+
+    document
+        .getElementById("zoomIn")
+        .addEventListener(
+            "click",
+            () => {
+
+                scale =
+                    Math.min(
+                        2,
+                        scale * 1.1
+                    );
+
+                updateCanvasTransform();
+            }
+        );
+
+
+    document
+        .getElementById("zoomOut")
+        .addEventListener(
+            "click",
+            () => {
+
+                scale =
+                    Math.max(
+                        0.25,
+                        scale * 0.9
+                    );
+
+                updateCanvasTransform();
+            }
+        );
+
+
+    /*
+     * =========================================================
+     * RESET VIEW
+     * =========================================================
+     */
+
+    document
+        .getElementById("resetView")
+        .addEventListener(
+            "click",
+            () => {
+
+                scale = 1;
+
+                panX = 0;
+
+                panY = 0;
+
+                updateCanvasTransform();
+            }
+        );
+
+
+    /*
+     * =========================================================
+     * CREATE INITIAL NODES
+     * =========================================================
+     */
+
+    Object.keys(nodes).forEach(
+        createNode
+    );
+
+
+    /*
+     * =========================================================
+     * INITIAL CONNECTIONS
+     * =========================================================
+     */
+
+    function initialConnect(
+        source,
+        target
+    ) {
+
+        const output =
+            document.querySelector(
+                `.output[data-node="${source}"].free`
+            );
+
+
+        const input =
+            document.querySelector(
+                `.input[data-node="${target}"].free`
+            );
+
+
+        if (!output || !input) {
+            return;
+        }
+
+
+        connections.push({
+
+            output:
+                output.dataset.portId,
+
+            input:
+                input.dataset.portId
+        });
+
+
+        output.classList.remove(
+            "free"
+        );
+
+
+        input.classList.remove(
+            "free"
+        );
+
+
+        ensureFreeOutput(
+            source
+        );
+
+
+        ensureFreeInput(
+            target
+        );
+    }
+
+
+    initialConnect(
+        "node1",
+        "node2"
+    );
+
+
+    initialConnect(
+        "node3",
+        "node1"
+    );
+
+
+    /*
+     * =========================================================
+     * INITIAL VIEW
+     * =========================================================
+     */
+
+    updateCanvasTransform();
+
+</script>
+
+</body>
+</html>
+

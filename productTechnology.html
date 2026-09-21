@@ -15,6 +15,23 @@ html, body {
   scrollbar-width: none;      /* Firefox */
   -ms-overflow-style: none;   /* IE/old Edge */
 }
+.reportsBtns {
+text-align: center;
+    font-size: 13px;
+    text-decoration: none;
+    padding: 8px;
+    border: none;
+    border-radius: 20px;
+    background: white;
+    color: black;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: bold;
+    width: 143px;
+  }
+  .reportBtns:hover {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  }
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
@@ -137,13 +154,32 @@ body::-webkit-scrollbar {
       <div class="row">
         <div class="column">
           <h2>What is it?</h2>
-          <p>Beskrivelse af hvad productions teknolog er</p>
+          <p>As a production technologist you design and develop physical products for consumers and companies and plan the production of them. 
+            <br><br>
+            The 7 core areas of the degree is:
+            <br>
+            Construction
+            <br>
+            Technical documentation
+            <br>
+            Materials & manufacturing processes
+            <br>
+            Production engineering
+            <br>
+            Business technology
+            <br>
+            Product development 
+            <br>
+            Automation
+            </p>
           
 
         </div>
         <div class="column">
           <h2>SolidWorks drawings</h2>
-          <p>During the process of designing the model, we ligewise use Solidworks to document all of the parts of the product.</p>
+          <p>In addition to the 7 core areas we use SolidWorks and get the chance to take a series of certificates. 
+We use it to design all of the parts of our product and test the finished construction. It also makes it easier for us to make prototypes in 3D print. 
+</p>
           
 
         </div>
@@ -151,12 +187,9 @@ body::-webkit-scrollbar {
 
       <div class="row">
         <div class="column">
-          <h2>Strength Calculation</h2>
-          <p>As part of my degree in Production Technology i have learned to calculate how much a construction can withhold. We did this first in hand and later as a FEA (Finite Element Analysis) in SolidWorks. 
-          By using Granta EduPack it was possible to set the needed boundaries and pick a handful of materials and then deciding on one material by using the Ashby’s method. 
-          </p>
+
           
-          <img src="images/solidworks/styrke.png" alt="">
+          <img src="images/solidworks/wheel.png" alt="">
         </div>
         <div class="column" style="height:500px;">
           <img src="images\chairBlueprint.png" alt="">
@@ -181,16 +214,54 @@ body::-webkit-scrollbar {
 
     <section class="after-model">
       <h2>What have i learned so far?</h2>
-      <p>hvad har jeg lært?</p>
-      <p>Hvad kan jeg bruge det til i perspektiv til andet? 3D development, 3D design til interior design, 3D visualization? i perspektiv til billeder? Produktions teknolog i forhold til masse produktion og forståelse af business modeller i sammenhæng med den virkelige verden
-        bred forståelse for forskellige produkter og hvad der skal til for at kunne sætte ide til virkelighed.
-      </p>
 
+      <p>During the first year of my degree i have made 4 projects with focus on the core areas. <br><br>
+
+<h3>The 1. Project:</h3>
+<ul>
+    <li>Visualize and gather data to be able to mass produce a chair.</li>
+    <li>Disassemble the chair and use SolidWorks to draw 3D objects of each part, creating an assembly.</li>
+    <li>Resulting in a final drawing of the chair with correct data for reproduction. This likewise gave me enough experience to complete my CSWA Certificate, which consists of multiple parts and 2 assemblies as shown down below.</li>
+</ul>
       <div class="certificates">
     <img src="images/assemble.png" alt="">
     <img src="images/certificates/solidworksCertificate.png" alt="">
     <img src="images/solidworks/something.png" alt="">
 </div>
+
+<h3>The 2. Project:</h3>
+<ul>
+    <li> Design a new trash can that makes waste sorting easier for people living in small spaces.</li>
+    <li> Used product development methods such as competitor analysis, Product Design Specification (PDS), function analysis, concept selection and HMI. Construction calculations were used to determine the required strength, while Granta EduPack and the Ashby method were used to identify and select suitable materials and manufacturing processes.</li>
+    <li> Developed a trash can concept designed around the requirements of small living spaces, with the material selection and construction supported by calculations and systematic product development methods.</li>
+</ul>
+<a href="images/solidworks/CASE2_PRT_1A_GR5_Systematisk_produktudvikling (1).pdf"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="reportsBtns">
+    Open Report
+</a>
+
+<h3>The 3. Project:</h3>
+<ul>
+    <li> Determine whether it would be profitable for a company to move its production from another country to Denmark.</li>
+    <li> Analysed the case using methods from Technical Documentation, Materials &amp; Manufacturing Processes, Production Engineering and Business Technology. Different tables, calculations and models were used to evaluate production, materials, documentation and the business case.</li>
+    <li> Produced an assessment of the feasibility and profitability of moving the company's production to Denmark, based on technical and business-related factors.</li>
+</ul>
+<a href="https://view.officeapps.live.com/op/view.aspx?src=images\solidworks\project3.xlsx"
+   target="_blank"
+   rel="noopener noreferrer">
+    Open Excel
+</a>
+<h3>The 4. Project:</h3>
+<ul>
+    <li> Design a small and modular LED light source for a montre in cooperation with the company Fantastic Bricks.</li>
+    <li> Worked directly with a real company and an actual product problem, applying knowledge from all seven core areas. The project included product development, construction, materials and manufacturing processes, technical documentation, production engineering and business technology, including LEAN methods.</li>
+    <li> Developed a modular LED light source concept that addressed the company's requirements while gaining practical experience working with a real customer, real-world constraints and a development process that applied to the customer's needs.</li>
+</ul>
+
+
+
     </section>
   </main>
 <footer>
@@ -258,12 +329,12 @@ body::-webkit-scrollbar {
       modelText.classList.remove("visible", "left", "right");
       switch (stage) {
         case 1:
-          modelText.textContent = "Created multiple parts for an assembly, resulting in a large amount of documented parts. This allowed us to be able to produce the full model in real life.";
+          modelText.textContent = "We reversed engineered a physical chair, took measurements of all the parts. ";
           modelText.classList.add("right", "visible");
           break;
 
         case 3:
-          modelText.textContent = "Iaculis massa nisl malesuada lacinia integer nunc posuere.";
+          modelText.textContent = "I then created the chair in SolidWorks by making the parts and made an assembly as part of our first exam. ";
           modelText.classList.add("left", "visible");
           break;
         default:
