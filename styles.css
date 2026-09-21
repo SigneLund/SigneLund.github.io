@@ -89,6 +89,9 @@ header h1 {
 .start-page-title {
     font-size: clamp(15px, 10vw, 6rem);
 }
+.startPage {
+    background-color: #e7e7e0;
+}
 
 /* ============================================================
    NAVIGATION
@@ -1148,6 +1151,24 @@ footer::before {
 
     animation: footerBorder 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
+
+.reportsBtns {
+text-align: center;
+    font-size: 13px;
+    text-decoration: none;
+    padding: 8px;
+    border: none;
+    border-radius: 20px;
+    background: #e7e7e0;
+    color: black;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: bold;
+    width: 143px;
+  }
+  .reportsBtns:hover {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  }
 
 @keyframes footerBorder {
     0% {
