@@ -115,7 +115,35 @@ body::-webkit-scrollbar {
       padding: 100px 4%;
     }
 }
+.image-zoom-container {
+    position: relative;
+    display: inline-block;
+}
 
+#zoomImage {
+    display: block;
+    width: 100%;
+}
+
+#zoomLens {
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    display: none;
+
+    background-repeat: no-repeat;
+
+    border: 3px solid white;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.35);
+}
   </style>
 </head>
 <body style="background:#a3bdc7;">
@@ -173,7 +201,15 @@ We use it to design all of the parts of our product and test the finished constr
         <div class="column">
 
           
-          <img src="images/solidworks/wheel.png" alt="">
+      <div class="image-zoom-container">
+          <img
+              id="zoomImage"
+              src="images/solidworks/wheel.png"
+              alt=""
+          >
+
+          <div id="zoomLens"></div>
+      </div>
         </div>
         <div class="column" style="height:500px;">
           <img src="images\chairBlueprint.png" alt="">
@@ -308,7 +344,44 @@ We use it to design all of the parts of our product and test the finished constr
     // wheel momentum handling
     let wheelAccumulator = 0;
     const DELTA_STEP = 70;
+const container = document.querySelector(".image-zoom-container");
+const image = document.getElementById("zoomImage");
+const lens = document.getElementById("zoomLens");
 
+const zoom = 2;
+
+container.addEventListener("mousemove", function (e) {
+
+    const rect = image.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Position the lens directly on the mouse
+    lens.style.left = `${x - lens.offsetWidth / 2}px`;
+    lens.style.top = `${y - lens.offsetHeight / 2}px`;
+
+    // Calculate mouse position as percentage
+    const percentX = (x / rect.width) * 100;
+    const percentY = (y / rect.height) * 100;
+
+    // Show zoomed image inside lens
+    lens.style.backgroundImage = `url("${image.src}")`;
+
+    lens.style.backgroundSize =
+        `${rect.width * zoom}px ${rect.height * zoom}px`;
+
+    lens.style.backgroundPosition =
+        `${percentX}% ${percentY}%`;
+
+    lens.style.display = "block";
+});
+
+container.addEventListener("mouseleave", function () {
+
+    lens.style.display = "none";
+
+});
     function sectionTopY() {
       return modelSection.getBoundingClientRect().top + window.scrollY;
     }

@@ -90,7 +90,7 @@ header h1 {
     font-size: clamp(15px, 10vw, 6rem);
 }
 .startPage {
-    background-color: #e7e7e0;
+    background-color: #a3bdc7;
 }
 
 /* ============================================================
@@ -931,7 +931,9 @@ main {
     /* ----------------------------------------
        GLOBAL
     ---------------------------------------- */
-
+    .model-section {
+        display: none;
+    }
 
     .model-sticky-area {
         display: none;
@@ -940,7 +942,9 @@ main {
     /* ----------------------------------------
        NAVIGATION
     ---------------------------------------- */
-
+    .column img {
+        width: ;
+    }
     nav {
         padding: 1rem;
     }
@@ -1083,7 +1087,10 @@ main {
     /* ----------------------------------------
        MODEL
     ---------------------------------------- */
-
+    .contactArea {
+        
+        padding: 0 50px 40px 50px;
+    }
     .model-sticky-area {
         height: 45vh;
         display: none;
@@ -1179,4 +1186,29 @@ text-align: center;
         left: 75%;
     }
 }
+.contactArea {
+    color: black;
+        min-height: 60vh;
+    background: #a3bdc7;
+    text-align: center;
+    padding: 0 220px 40px 60px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+/* White navigation on Photography + Contact */
+body.light-navigation .timeline-dot,
+body.light-navigation .timeline-label,
+body.light-navigation .burger {
+    color: white;
+}
 
+body.light-navigation .timeline-dot {
+    background-color: white;
+}
+.interiorPageContainer {
+    padding: 10px;
+    background: white;
+}

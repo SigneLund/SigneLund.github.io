@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,116 +19,150 @@
         href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap"
         rel="stylesheet"
     >
+
     <link rel="stylesheet" href="styles.css">
+
     <style>
-.startPage {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    box-sizing: border-box;
-    padding: 5px 16px 0 16px;
-}
+
+        /* ============================================================
+           WHITE NAVIGATION ON SLIDES 4 AND 5
+        ============================================================ */
+
+        body.light-navigation .burger {
+            color: white;
+        }
+
+        body.light-navigation .timeline-label {
+            color: white;
+        }
+
+        body.light-navigation .timeline-dot {
+            background-color: white;
+            border-color: white;
+        }
 
 
-/* =========================
-   TITLE
-   ========================= */
+        /* ============================================================
+           START PAGE
+        ============================================================ */
 
-.startPage .page-title {
-    position: absolute;
-    top: 5px;
-    left: 16px;
-
-    font-size: 38px;
-    font-weight: bold;
-}
-
-
-/* =========================
-   SUBTITLE
-   ========================= */
-
-.startPage .page-subtitle {
-    position: absolute;
-    top: 184px;
-    left: 16px;
-
-    text-align: left;
-    font-size: 20px;
-    line-height: 1.15;
-}
+        .startPage {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            box-sizing: border-box;
+            padding: 5px 16px 0 16px;
+        }
 
 
-/* =========================
-   SKILLS
-   ========================= */
+        /* =========================
+           TITLE
+           ========================= */
 
-.startPage .pageContent {
-    position: absolute;
-    top: 184px;
-    right: 22px;
+        .startPage .page-title {
+            position: absolute;
+            top: 5px;
+            left: 16px;
 
-    text-align: right;
-    font-size: 15px;
-    line-height: 1.2;
-}
+            font-size: 38px;
+            font-weight: bold;
+        }
 
 
-/* =========================
-   IMAGE GALLERY
-   ========================= */
-.start-gallery {
-    padding-right: 150px;
-    background: #a3bdc7;
-    position: absolute;
-    left: -0.6%;
-    right: 14%;
-    bottom: 29px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    align-items: end;
-}
+        /* =========================
+           SUBTITLE
+           ========================= */
 
-@media (max-width: 800px) {
-    .start-gallery {
-        left: 0;
-        right: 0;
-        width: 100vw;
-        padding-right: 0;
-    }
+        .startPage .page-subtitle {
+            position: absolute;
+            top: 184px;
+            left: 16px;
+            color:white;
+            text-align: left;
+            font-size: 20px;
+            line-height: 1.15;
+        }
 
-}
-/* =========================
-   IMAGES
-   ========================= */
 
-.start-image {
-    width: 100%;
-    height: 260px;
+        /* =========================
+           SKILLS
+           ========================= */
 
-    overflow: hidden;
+        .startPage .pageContent {
+            position: absolute;
+            top: 184px;
+            right: 22px;
+            
+            text-align: right;
+            font-size: 15px;
+            line-height: 1.2;
+        }
 
-    background: #dddddd00;
-}
 
-.start-image img {
-    width: 100%;
-    height: 100%;
+        /* =========================
+           IMAGE GALLERY
+           ========================= */
 
-    object-fit: cover;
+        .start-gallery {
+            
+            background: #a3bdc7;
+            position: absolute;
+            left: -0.6%;
+            right: 14%;
+            bottom: 29px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            align-items: end;
+        }
 
-    display: block;
-}
-.hover-video {
-    width: 500px;
-    height: 300px;
 
-    object-fit: cover;
-    object-position: bottom center;
-}
+        @media (max-width: 800px) {
+
+            .start-gallery {
+                left: 0;
+                right: 0;
+                width: 100vw;
+                padding-right: 0;
+            }
+
+        }
+
+
+        /* =========================
+           IMAGES
+           ========================= */
+
+        .start-image {
+            width: 100%;
+            height: 260px;
+
+            overflow: hidden;
+
+            background: #dddddd00;
+        }
+
+
+        .start-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+
+        .hover-video {
+            width: 500px;
+            height: 300px;
+
+            object-fit: cover;
+            object-position: bottom center;
+        }
 
     </style>
+
 </head>
 
 
@@ -177,13 +212,41 @@
 
         </ul>
 
-    <ul id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="interiorDesign.html">Interior design</a></li>
-        <li><a href="productTechnology.html">Production technology</a></li>
-        <li><a href="photography.html">Photography</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
+
+        <ul id="nav-links">
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="interiorDesign.html">
+                    Interior design
+                </a>
+            </li>
+
+            <li>
+                <a href="productTechnology.html">
+                    Production technology
+                </a>
+            </li>
+
+            <li>
+                <a href="photography.html">
+                    Photography
+                </a>
+            </li>
+
+            <li>
+                <a href="contact.html">
+                    Contact
+                </a>
+            </li>
+
+        </ul>
+
     </nav>
 
 
@@ -192,7 +255,6 @@
     ============================================================ -->
 
     <div class="timeline" aria-hidden="false">
-
 
 
         <div class="timeline-item active" data-index="0">
@@ -259,126 +321,217 @@
     <div class="canvas">
 
 
-        <!-- HOME -->
+        <!-- ========================================================
+             HOME
+        ======================================================== -->
 
         <div class="content active" id="contentHome">
 
             <div class="full-page" style="padding: 0rem;">
-                <div class="startPage">
 
-    <!-- LEFT HEADER -->
-    <div class="start-page-title">
-        Signe Lund Nissen
-    </div>
-
-    <div class="page-subtitle" style="font-size: 15px;">
-        Interior Designer
-        <br>
-        Production Technology Student
-    </div>
+                <div class="startPage" style="background-image: url('images/photography/Blomst---Fotograf\ Signe\ Lund\ Nissen-All\ copyrightsDSC_0237\ copy.jpg');
+    background-size: 299vh auto;
+    background-repeat: no-repeat;
+    background-position: center;">
 
 
-    <!-- RIGHT SKILLS -->
-    <div class="pageContent">
-        <div>SolidWorks</div>
-        <div>Photography</div>
-        <div>Design</div>
-        <div>Production planning</div>
-    </div>
+                    <!-- LEFT HEADER -->
+
+                    <div class="start-page-title" style="color: white;">
+                        Signe Lund Nissen
+                    </div>
 
 
-    <!-- IMAGE GALLERY -->
-    <div class="start-gallery">
-
-<div class="start-image">
-    <a href="productTechnology.html" title="Production Technology">
-        <!-- <img src="images/assemble.png" alt="" title="Production Technology"> -->
-        <model-viewer
-            id="model"
-            src="models/ass_2.glb"
-            camera-orbit="0deg 75deg 105%"
-            field-of-view="30deg"
-            
-            shadow-intensity="1.5"
-            exposure="0.7">
-        </model-viewer>
-    </a>
-</div>
-
-<div class="start-image">
-    <a href="interiorDesign.html">
-        <img src="autocad/room.png" alt="" title="Interior Design">
-    </a>
-</div>
-
-<div class="start-image">
-<a href="photography.html" class="video-link" title="Photography">
-    <video class="hover-video" muted loop playsinline preload="metadata">
-        <source src="videos/birds.mp4" type="video/mp4">
-    </video>
-</a>
-</div>
+                    <div
+                        class="page-subtitle"
+                        style="font-size: 15px;"
+                    >
+                        Interior Designer
+                        <br>
+                        Production Technology Student
+                    </div>
 
 
+                    <!-- RIGHT SKILLS -->
 
-    </div>
+                    <div class="pageContent" style="color: white;">
 
-</div>
+                        <div>SolidWorks</div>
+                        <div>Photography</div>
+                        <div>Design</div>
+                        <div>Production planning</div>
+
+                    </div>
+
+
+                    <!-- IMAGE GALLERY -->
+
+                    <div class="start-gallery">
+
+
+                        <div class="start-image">
+
+                            <a
+                                href="productTechnology.html"
+                                title="Production Technology"
+                            >
+
+                                <model-viewer
+                                    id="model"
+                                    src="models/ass_2.glb"
+                                    camera-orbit="0deg 75deg 105%"
+                                    field-of-view="30deg"
+                                    shadow-intensity="1.5"
+                                    exposure="0.7"
+                                >
+                                </model-viewer>
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="start-image">
+
+                            <a href="interiorDesign.html">
+
+                                <img
+                                    src="autocad/room.png"
+                                    alt=""
+                                    title="Interior Design"
+                                >
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="start-image">
+
+                            <a
+                                href="photography.html"
+                                class="video-link"
+                                title="Photography"
+                            >
+
+                                <video
+                                    class="hover-video"
+                                    muted
+                                    loop
+                                    playsinline
+                                    preload="metadata"
+                                >
+
+                                    <source
+                                        src="videos/birds.mp4"
+                                        type="video/mp4"
+                                    >
+
+                                </video>
+
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
 
-        <!-- INTERIOR DESIGN -->
+        <!-- ========================================================
+             INTERIOR DESIGN
+        ======================================================== -->
 
-        <div class="content" id="contentInteriorDesign" style="background-color: #a3bdc7;">
+        <div
+            class="content"
+            id="contentInteriorDesign"
+            style="background-color: #a3bdc7;"
+        >
 
             <div class="split-page">
 
+
                 <div class="text-scroll-area">
 
-                    <div class="page-title" style="text-align: left; margin-bottom: 0px; color: #533737;">
+                    <div
+                        class="page-title"
+                        style="
+                            text-align: left;
+                            margin-bottom: 0px;
+                            color: #533737;
+                        "
+                    >
                         Production Technology
                     </div>
 
+
                     <div class="section-copy">
-                          <strong>SolidWorks</strong> used for assignments and exams at <strong>Erhvervsakademi København</strong>
-                          <br><br>
-                          Turning innovative ideas and reinvented products into accurate, manufacturable designs.
-                          <br><br>
-                          Using SOLIDWORKS to create 3D models, assemblies, prototypes, and detailed product documentation, including 3D printing and production-ready designs.
-                          <br><br>
-                          Faster development, easier identification of design improvements, and accurate documentation that supports reproduction and mass production.
+
+                        <strong>SolidWorks</strong>
+                        used for assignments and exams at
+                        <strong>Erhvervsakademi København</strong>
+
+                        <br><br>
+
+                        Turning innovative ideas and reinvented products
+                        into accurate, manufacturable designs.
+
+                        <br><br>
+
+                        Using SOLIDWORKS to create 3D models,
+                        assemblies, prototypes, and detailed product
+                        documentation, including 3D printing and
+                        production-ready designs.
+
+                        <br><br>
+
+                        Faster development, easier identification of
+                        design improvements, and accurate documentation
+                        that supports reproduction and mass production.
 
                     </div>
-                    
-                <a href="productTechnology.html">
-                    <button style="width: 135px; background-color: #e7e7e0; color: black;">
-                        See more
-                    </button>
-                </a>
-                    
-              
+
+
+                    <a href="productTechnology.html">
+
+                        <button
+                            style="
+                                width: 135px;
+                                background-color: #e7e7e0;
+                                color: black;
+                            "
+                        >
+                            See more
+                        </button>
+
+                    </a>
+
 
                 </div>
 
 
                 <div class="model-sticky-area">
 
-                  <model-viewer
-                      id="mainModel"
-                      src="models/ASS-CASE1.glb"
-                      camera-controls
-                      disable-zoom
-                      auto-rotate
-                      rotation-per-second="2deg"
-                      camera-orbit="135deg 75deg 105%"
-                      shadow-intensity="1.5"
-                      exposure="0.4"
-                      ar
-                      interaction-prompt="none"
-                      alt="3D model"
-                  ></model-viewer>
+                    <model-viewer
+                        id="mainModel"
+                        src="models/ASS-CASE1.glb"
+                        camera-controls
+                        disable-zoom
+                        auto-rotate
+                        rotation-per-second="2deg"
+                        camera-orbit="135deg 75deg 105%"
+                        shadow-intensity="1.5"
+                        exposure="0.4"
+                        ar
+                        interaction-prompt="none"
+                        alt="3D model"
+                    >
+                    </model-viewer>
 
                 </div>
 
@@ -387,60 +540,137 @@
         </div>
 
 
-        <!-- PRODUCT TECHNOLOGY -->
+        <!-- ========================================================
+             PRODUCT TECHNOLOGY
+        ======================================================== -->
 
-        <div class="content" id="contentProductTechnology">
+        <div
+            class="content"
+            id="contentProductTechnology"
+        >
 
-            <div class="full-page" style="background-image: url(autocad/big.png);
-                background-repeat: no-repeat;
-                
-                align-items: start;
-                padding-left: 7rem;">
+            <div
+                class="full-page"
+                style="
+                        background-image: url(autocad/big.png);
+    background-size: 178vh auto;
+    background-repeat: no-repeat;
+    background-position: center;
+                "
+            >
+                <div class="interiorPageContainer">
 
-                <div class="page-title" style="text-align: left; color: #92a7af;">
+<div
+                    class="page-title"
+                    style="
+                        text-align: left;
+                        color: #92a7af;
+                    "
+                >
                     Interior Design
                 </div>
 
-                <div class="page-subtitle" style="text-align: left;">
-                  <strong>AutoCAD</strong> Used in assignments and exams at <strong>School of Interior Design Copenhagen</strong>
-                  <br><br>
-                  Creating functional and well-organized spaces that make the best use of available room.
-                  <br><br>
-                  Using AutoCAD to produce precise blueprints and layouts, calculating room dimensions and strategically placing furniture, equipment, and other elements.
-                  <br><br>
-                  Functional and efficient layouts for environments such as offices, hospitals, and residential spaces, with accurate plans ready for implementation.
-                  
+
+                <div
+                    class="page-subtitle"
+                    style="text-align: left;"
+                >
+
+                    <strong>AutoCAD</strong>
+                    Used in assignments and exams at
+                    <strong>School of Interior Design Copenhagen</strong>
+
+                    <br><br>
+
+                    Creating functional and well-organized spaces that
+                    make the best use of available room.
+
+                    <br><br>
+
+                    Using AutoCAD to produce precise blueprints and
+                    layouts, calculating room dimensions and strategically
+                    placing furniture, equipment, and other elements.
+
+                    <br><br>
+
+                    Functional and efficient layouts for environments
+                    such as offices, hospitals, and residential spaces,
+                    with accurate plans ready for implementation.
+
                 </div>
+
+                </div>
+                
+
+
                 <br><br>
+
+
                 <a href="interiorDesign.html">
-                    <button >
+
+                    <button>
                         See more
                     </button>
+
                 </a>
+
             </div>
 
         </div>
 
 
-        <!-- PHOTOGRAPHY -->
+        <!-- ========================================================
+             PHOTOGRAPHY
+        ======================================================== -->
 
-        <div class="content" id="contentPhotography">
+        <div
+            class="content"
+            id="contentPhotography"
+        >
 
-            <div class="full-page">
+            <div
+                class="full-page"
+                style="
+                    background-image:
+                        url('images/photography/Maja Yoghurt---Fotograf Signe Lund Nissen All CopyrightsDSC00457 copy.jpg');
 
-                <div class="page-title">
+                    background-size: 330vh auto;
+
+                    background-repeat: no-repeat;
+
+                    background-position: center;
+                "
+            >
+
+                <div
+                    class="page-title"
+                    style="
+                        font-size: clamp(3rem, 12vw, 13rem);
+                        color: white;
+                        text-align: center;
+                        margin-bottom: 2rem;
+                    "
+                >
                     Photography
                 </div>
+
+
                 <a href="photography.html">
-                    <button style="width: 135px; background-color: #e7e7e0; color: black;">
+
+                    <button
+                        style="
+                            width: 135px;
+                            background-color: #e7e7e0;
+                            color: black;
+                        "
+                    >
                         See more
                     </button>
+
                 </a>
+
+
                 <div class="page-subtitle">
-                    Capturing moments with precision and artistry.
-                    Our photography services showcase the beauty
-                    in every frame, telling your unique story
-                    through visual excellence.
                 </div>
 
             </div>
@@ -448,21 +678,53 @@
         </div>
 
 
-        <!-- CONTACT -->
+        <!-- ========================================================
+             CONTACT
+        ======================================================== -->
 
-        <div class="content" id="contentContact">
+        <div
+            class="content"
+            id="contentContact"
+        >
 
-            <div class="full-page">
+            <div
+                class="full-page"
+                style="
+                    background: #a3bdc7;
 
-                <div class="page-title">
-                    Contact
-                </div>
+                    background-image:
+                        url('images/photography/Jeannie+Jidam-Cropped---Fotograf Signe Lund Nissen-All copyrightsDSC_0419 copy.jpg');
 
-                <div class="page-subtitle">
-                    Get in touch with us to discuss your next
-                    project. We'd love to hear from you and help
-                    bring your ideas to life.
-                </div>
+                    background-size: 206vh auto;
+
+                    background-repeat: no-repeat;
+
+                    background-position: center;
+                "
+            >
+
+<div
+    style="
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    "
+>
+    <div
+        class="contactArea"
+        
+    >
+        <div class="page-title" >
+            Contact
+        </div>
+
+        <div class="page-subtitle" style="text-align: left;">
+            Tlf. +45 30688203 <br>
+            email: signe_nissen@me.com
+        </div>
+    </div>
+</div>
 
             </div>
 
@@ -470,62 +732,115 @@
 
     </div>
 
-<footer>
-    <span>+45 30688203</span>
-    <span>signe_nissen@me.com</span>
-</footer>
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+
+    <footer>
+
+        <span>
+            +45 30688203
+        </span>
+
+        <span>
+            signe_nissen@me.com
+        </span>
+
+    </footer>
+
+
     <!-- ============================================================
          JAVASCRIPT
     ============================================================ -->
+
     <script src="js.js"></script>
-    <script>
-    const video = document.querySelector('.hover-video');
 
-    video.addEventListener('mouseenter', () => {
-        video.play();
-    });
 
-    video.addEventListener('mouseleave', () => {
-        video.pause();
-        video.currentTime = 0;
-    });
-</script>
+    <!-- ============================================================
+         VIDEO HOVER
+    ============================================================ -->
+
     <script>
 
+        const video =
+            document.querySelector('.hover-video');
 
 
-                const model = document.getElementById("model");
+        video.addEventListener(
+            'mouseenter',
+            () => {
+
+                video.play();
+
+            }
+        );
+
+
+        video.addEventListener(
+            'mouseleave',
+            () => {
+
+                video.pause();
+
+                video.currentTime = 0;
+
+            }
+        );
+
+    </script>
+
+
+    <!-- ============================================================
+         MODEL HOVER
+    ============================================================ -->
+
+    <script>
+
+        const model =
+            document.getElementById("model");
+
 
         // Normal position
+
         let currentX = 0;
         let currentY = 0;
 
+
         // Target position
+
         let targetX = 0;
         let targetY = 0;
+
 
         // =====================================================
         // HOVER
         // =====================================================
 
-        model.addEventListener("mouseenter", () => {
+        model.addEventListener(
+            "mouseenter",
+            () => {
 
-            targetX = 20;
-            targetY = 30;
+                targetX = 20;
+                targetY = 30;
 
-        });
+            }
+        );
 
 
         // =====================================================
         // UNHOVER
         // =====================================================
 
-        model.addEventListener("mouseleave", () => {
+        model.addEventListener(
+            "mouseleave",
+            () => {
 
-            targetX = 0;
-            targetY = 0;
+                targetX = 0;
+                targetY = 0;
 
-        });
+            }
+        );
 
 
         // =====================================================
@@ -536,22 +851,37 @@
 
             requestAnimationFrame(animate);
 
-            currentX += (targetX - currentX) * 0.08;
-            currentY += (targetY - currentY) * 0.08;
+
+            currentX +=
+                (targetX - currentX) * 0.08;
+
+
+            currentY +=
+                (targetY - currentY) * 0.08;
+
 
             model.cameraOrbit =
                 `${currentY}deg ${75 + currentX}deg 105%`;
 
         }
 
-        animate();
-    </script>
-    <script>
 
+        animate();
+
+    </script>
+
+
+    <!-- ============================================================
+         PAGE / TIMELINE
+    ============================================================ -->
+
+    <script>
 
         const pages = [
 
-            document.getElementById('contentHome'),
+            document.getElementById(
+                'contentHome'
+            ),
 
             document.getElementById(
                 'contentInteriorDesign'
@@ -590,6 +920,32 @@
 
 
         /* ============================================================
+           NAVIGATION COLOR
+        ============================================================ */
+
+        function updateNavigationColor(index) {
+
+            if (
+                index === 3 ||
+                index === 4
+            ) {
+
+                document.body.classList.add(
+                    'light-navigation'
+                );
+
+            } else {
+
+                document.body.classList.remove(
+                    'light-navigation'
+                );
+
+            }
+
+        }
+
+
+        /* ============================================================
            PAGE TRANSITION
         ============================================================ */
 
@@ -601,7 +957,9 @@
                 index >= pages.length ||
                 index === currentIndex
             ) {
+
                 return;
+
             }
 
 
@@ -642,6 +1000,7 @@
                     isAnimating = false;
 
                     return;
+
                 }
 
 
@@ -653,6 +1012,7 @@
                     isAnimating = false;
 
                     return;
+
                 }
 
             }
@@ -667,62 +1027,82 @@
                 .remove('active');
 
 
-            setTimeout(() => {
-
-                /* --------------------------------
-                   Show new page
-                -------------------------------- */
-
-                pages[index]
-                    .classList
-                    .add('active');
+            setTimeout(
+                () => {
 
 
-                /* --------------------------------
-                   Timeline
-                -------------------------------- */
+                    /* --------------------------------
+                       Show new page
+                    -------------------------------- */
 
-                timelineItems[currentIndex]
-                    .classList
-                    .remove('active');
-
-
-                timelineItems[index]
-                    .classList
-                    .add('active');
+                    pages[index]
+                        .classList
+                        .add('active');
 
 
-                /* --------------------------------
-                   Reset text scroll
-                -------------------------------- */
+                    /* --------------------------------
+                       Timeline
+                    -------------------------------- */
 
-                const newPage =
-                    pages[index];
+                    timelineItems[currentIndex]
+                        .classList
+                        .remove('active');
 
 
-                const newTextScrollArea =
-                    newPage.querySelector(
-                        '.text-scroll-area'
+                    timelineItems[index]
+                        .classList
+                        .add('active');
+
+
+                    /* --------------------------------
+                       Reset text scroll
+                    -------------------------------- */
+
+                    const newPage =
+                        pages[index];
+
+
+                    const newTextScrollArea =
+                        newPage.querySelector(
+                            '.text-scroll-area'
+                        );
+
+
+                    if (newTextScrollArea) {
+
+                        newTextScrollArea.scrollTop = 0;
+
+                    }
+
+
+                    /* --------------------------------
+                       Update current page
+                    -------------------------------- */
+
+                    currentIndex = index;
+
+
+                    /* --------------------------------
+                       Update navigation color
+                    -------------------------------- */
+
+                    updateNavigationColor(
+                        currentIndex
                     );
 
 
-                if (newTextScrollArea) {
+                    setTimeout(
+                        () => {
 
-                    newTextScrollArea.scrollTop = 0;
+                            isAnimating = false;
 
-                }
+                        },
+                        300
+                    );
 
-
-                currentIndex = index;
-
-
-                setTimeout(() => {
-
-                    isAnimating = false;
-
-                }, 300);
-
-            }, 300);
+                },
+                300
+            );
 
         }
 
@@ -740,7 +1120,9 @@
                         'active'
                     )
                 ) {
+
                     return;
+
                 }
 
 
@@ -795,7 +1177,9 @@
                         'active'
                     )
                 ) {
+
                     return;
+
                 }
 
 
@@ -838,27 +1222,39 @@
            TIMELINE CLICK
         ============================================================ */
 
-        timelineItems.forEach((item) => {
+        timelineItems.forEach(
+            (item) => {
 
-            item.addEventListener(
-                'click',
-                () => {
+                item.addEventListener(
+                    'click',
+                    () => {
 
-                    const index =
-                        Number(
-                            item.dataset.index
-                        );
+                        const index =
+                            Number(
+                                item.dataset.index
+                            );
 
 
-                    goToPage(index);
+                        goToPage(index);
 
-                }
-            );
+                    }
+                );
 
-        });
+            }
+        );
+
+
+        /* ============================================================
+           INITIAL NAVIGATION STATE
+        ============================================================ */
+
+        updateNavigationColor(
+            currentIndex
+        );
 
     </script>
 
 </body>
 
 </html>
+
