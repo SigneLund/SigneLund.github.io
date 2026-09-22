@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +15,15 @@
     <title>Photography</title>
 
     <style>
+        html {
+                        background-color: #a3bdc7;
 
+        }
+        body {
+            background-color: #a3bdc7;
+        }
         /* =========================
-           Photography Gallery
+           Photography Layout
            ========================= */
 
         .photography-container {
@@ -29,24 +36,57 @@
             margin-bottom: 30px;
         }
 
+
+        /*
+         * Main two-column layout
+         */
+
+        .photography-layout {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                280px;
+
+            gap: 40px;
+
+            align-items: start;
+        }
+
+
+        /* =========================
+           Photography Gallery
+           ========================= */
+
         .photo-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+            grid-template-columns:
+                repeat(auto-fill, minmax(250px, 1fr));
+
             gap: 20px;
+
+            align-items: start;
         }
 
         .photo-item {
             width: 100%;
+
             aspect-ratio: 4 / 3;
+
             overflow: hidden;
+
             cursor: pointer;
+
             background: #eee;
         }
 
         .photo-item img {
             width: 100%;
             height: 100%;
+
             object-fit: cover;
+
             display: block;
 
             transition:
@@ -57,6 +97,42 @@
         .photo-item:hover img {
             transform: scale(1.05);
             opacity: 0.85;
+        }
+
+
+        /* =========================
+           Information Box
+           ========================= */
+
+        .photography-info {
+            position: sticky;
+            border-radius: 20px;
+            top: 30px;
+
+            padding: 25px;
+
+            background: #f4f4f421;
+
+            box-sizing: border-box;
+        }
+
+
+        .photography-info h2 {
+            margin-top: 0;
+
+            margin-bottom: 15px;
+        }
+
+
+        .photography-info p {
+            margin: 0 0 15px 0;
+
+            line-height: 1.6;
+        }
+
+
+        .photography-info p:last-child {
+            margin-bottom: 0;
         }
 
 
@@ -97,7 +173,8 @@
 
             object-fit: contain;
 
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
 
@@ -137,7 +214,9 @@
 
         .gallery-loading {
             text-align: center;
+
             font-size: 18px;
+
             opacity: 0.7;
         }
 
@@ -146,17 +225,52 @@
            Mobile
            ========================= */
 
+        @media (max-width: 900px) {
+
+            .photography-layout {
+                grid-template-columns: 1fr;
+
+                gap: 30px;
+            }
+
+
+            /*
+             * The information box is no longer
+             * sticky on smaller screens.
+             */
+
+            .photography-info {
+                position: relative;
+
+                top: auto;
+
+                order: -1;
+            }
+
+        }
+
+
         @media (max-width: 600px) {
 
             .photography-container {
                 width: 94%;
+
                 margin-top: 30px;
             }
 
+
             .photo-gallery {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
+
                 gap: 10px;
             }
+
+
+            .photography-info {
+                padding: 20px;
+            }
+
 
             .image-viewer {
                 padding: 15px;
@@ -170,8 +284,10 @@
             .close-viewer {
                 top: 15px;
                 right: 20px;
+
                 font-size: 35px;
             }
+
         }
 
     </style>
@@ -183,7 +299,7 @@
          Navigation
          ========================= -->
 
-    <nav>
+    <nav style="background-color: #a3bdc700;">
 
         <div class="logo"></div>
 
@@ -232,13 +348,40 @@
 
     <main class="photography-container">
 
-        <h1>Photography</h1>
+        <h1 style="    font-size: clamp(110%, 14vw, 799%);">Photography</h1>
 
-        <div id="photo-gallery" class="photo-gallery">
 
-            <p class="gallery-loading">
-                Loading photographs...
-            </p>
+        <div class="photography-layout">
+
+
+            <!-- =========================
+                 Gallery
+                 ========================= -->
+
+            <div
+                id="photo-gallery"
+                class="photo-gallery"
+            >
+
+                <p class="gallery-loading">
+                    Loading photographs...
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 Information
+                 ========================= -->
+
+            <aside class="photography-info">
+
+                <h2>Nørregårds Højskole</h2>
+                    At Nørgaards Højskole in 2018, where photography was one of my main subjects. During my time at the school, I was taught by Morten Rygaard, an internationally recognised Danish photographer. The experience gave me a strong foundation in photography and further developed my interest in visual storytelling and capturing the atmosphere of a place. Today, I continue to combine my interests of photography and I travel.
+
+
+
+            </aside>
 
         </div>
 
@@ -249,18 +392,27 @@
          Image Viewer
          ========================= -->
 
-    <div id="image-viewer" class="image-viewer">
+    <div
+        id="image-viewer"
+        class="image-viewer"
+    >
 
-        <div id="close-viewer" class="close-viewer">
+        <div
+            id="close-viewer"
+            class="close-viewer"
+        >
             &times;
         </div>
 
-        <img id="viewer-image" src="" alt="">
+        <img
+            id="viewer-image"
+            src=""
+            alt=""
+        >
 
     </div>
 
 
-    <!-- Existing JavaScript -->
     <script src="js.js"></script>
 
 
@@ -270,37 +422,242 @@
 
     <script>
 
-        const gallery = document.getElementById("photo-gallery");
+        const gallery =
+            document.getElementById(
+                "photo-gallery"
+            );
 
-        const imageViewer = document.getElementById("image-viewer");
+        const imageViewer =
+            document.getElementById(
+                "image-viewer"
+            );
 
-        const viewerImage = document.getElementById("viewer-image");
+        const viewerImage =
+            document.getElementById(
+                "viewer-image"
+            );
 
-        const closeViewer = document.getElementById("close-viewer");
+        const closeViewer =
+            document.getElementById(
+                "close-viewer"
+            );
 
 
         /*
          * GitHub repository information
          */
 
-        const githubUser = "SigneLund";
+        const githubUser =
+            "SigneLund";
 
-        const githubRepo = "SigneLund.github.io";
+        const githubRepo =
+            "SigneLund.github.io";
 
-        const githubPath = "images/photography";
+        const githubPath =
+            "images/photography";
 
 
         /*
+         * =========================
+         * Get average image color
+         * =========================
+         */
+
+        function getImageColor(image) {
+
+            return new Promise((resolve) => {
+
+                const canvas =
+                    document.createElement(
+                        "canvas"
+                    );
+
+                const context =
+                    canvas.getContext(
+                        "2d"
+                    );
+
+                canvas.width = 20;
+                canvas.height = 20;
+
+                try {
+
+                    context.drawImage(
+                        image,
+                        0,
+                        0,
+                        20,
+                        20
+                    );
+
+                    const pixels =
+                        context.getImageData(
+                            0,
+                            0,
+                            20,
+                            20
+                        ).data;
+
+                    let red = 0;
+                    let green = 0;
+                    let blue = 0;
+                    let count = 0;
+
+
+                    for (
+                        let i = 0;
+                        i < pixels.length;
+                        i += 4
+                    ) {
+
+                        const alpha =
+                            pixels[i + 3];
+
+                        if (alpha === 0) {
+                            continue;
+                        }
+
+                        red += pixels[i];
+                        green += pixels[i + 1];
+                        blue += pixels[i + 2];
+
+                        count++;
+
+                    }
+
+
+                    if (count === 0) {
+
+                        resolve({
+                            r: 0,
+                            g: 0,
+                            b: 0,
+                            hue: 0
+                        });
+
+                        return;
+                    }
+
+
+                    red /= count;
+                    green /= count;
+                    blue /= count;
+
+
+                    /*
+                     * Convert RGB to HSV
+                     */
+
+                    const r =
+                        red / 255;
+
+                    const g =
+                        green / 255;
+
+                    const b =
+                        blue / 255;
+
+                    const max =
+                        Math.max(r, g, b);
+
+                    const min =
+                        Math.min(r, g, b);
+
+                    const difference =
+                        max - min;
+
+                    let hue = 0;
+
+
+                    if (difference !== 0) {
+
+                        if (max === r) {
+
+                            hue =
+                                60 *
+                                (
+                                    ((g - b) /
+                                    difference) % 6
+                                );
+
+                        }
+
+                        else if (max === g) {
+
+                            hue =
+                                60 *
+                                (
+                                    ((b - r) /
+                                    difference) + 2
+                                );
+
+                        }
+
+                        else {
+
+                            hue =
+                                60 *
+                                (
+                                    ((r - g) /
+                                    difference) + 4
+                                );
+
+                        }
+
+                    }
+
+
+                    if (hue < 0) {
+                        hue += 360;
+                    }
+
+
+                    resolve({
+
+                        r: red,
+                        g: green,
+                        b: blue,
+
+                        hue: hue
+
+                    });
+
+                }
+
+                catch (error) {
+
+                    resolve({
+
+                        r: 0,
+                        g: 0,
+                        b: 0,
+
+                        hue: 999
+
+                    });
+
+                }
+
+            });
+
+        }
+
+
+        /*
+         * =========================
          * Load images from GitHub
+         * =========================
          */
 
         async function loadPhotography() {
 
             try {
 
-                const response = await fetch(
-                    `https://api.github.com/repos/${githubUser}/${githubRepo}/contents/${githubPath}`
-                );
+                const response =
+                    await fetch(
+                        `https://api.github.com/repos/${githubUser}/${githubRepo}/contents/${githubPath}`
+                    );
+
 
                 if (!response.ok) {
 
@@ -310,35 +667,38 @@
 
                 }
 
-                const files = await response.json();
+
+                const files =
+                    await response.json();
 
 
                 /*
                  * Only allow common image formats
                  */
 
-                const images = files.filter(file => {
+                const images =
+                    files.filter(file => {
 
-                    if (file.type !== "file") {
-                        return false;
-                    }
+                        if (
+                            file.type !==
+                            "file"
+                        ) {
+                            return false;
+                        }
 
-                    const name = file.name.toLowerCase();
+                        const name =
+                            file.name.toLowerCase();
 
-                    return (
-                        name.endsWith(".jpg") ||
-                        name.endsWith(".jpeg") ||
-                        name.endsWith(".png") ||
-                        name.endsWith(".webp") ||
-                        name.endsWith(".gif")
-                    );
+                        return (
+                            name.endsWith(".jpg") ||
+                            name.endsWith(".jpeg") ||
+                            name.endsWith(".png") ||
+                            name.endsWith(".webp") ||
+                            name.endsWith(".gif")
+                        );
 
-                });
+                    });
 
-
-                /*
-                 * Clear loading message
-                 */
 
                 gallery.innerHTML = "";
 
@@ -360,72 +720,157 @@
 
 
                 /*
-                 * Create gallery items
+                 * =========================
+                 * Load image colors
+                 * =========================
                  */
 
-                images.forEach(file => {
+                const colorSortedImages =
+                    await Promise.all(
 
-                    const imageContainer =
-                        document.createElement("div");
+                        images.map(
+                            async file => {
 
-                    imageContainer.className =
-                        "photo-item";
+                                const image =
+                                    new Image();
 
-
-                    const image =
-                        document.createElement("img");
-
-
-                    /*
-                     * GitHub raw image URL
-                     */
-
-                    image.src =
-                        `https://raw.githubusercontent.com/${githubUser}/${githubRepo}/main/${githubPath}/${encodeURIComponent(file.name)}`;
+                                image.crossOrigin =
+                                    "Anonymous";
 
 
-                    image.alt =
-                        file.name;
+                                image.src =
+                                    `https://raw.githubusercontent.com/${githubUser}/${githubRepo}/main/${githubPath}/${encodeURIComponent(file.name)}`;
 
 
-                    image.loading =
-                        "lazy";
+                                await new Promise(
+                                    resolve => {
+
+                                        image.onload =
+                                            resolve;
+
+                                        image.onerror =
+                                            resolve;
+
+                                    }
+                                );
 
 
-                    /*
-                     * Open image when clicked
-                     */
+                                const color =
+                                    await getImageColor(
+                                        image
+                                    );
 
-                    imageContainer.addEventListener(
-                        "click",
-                        () => {
 
-                            viewerImage.src =
-                                image.src;
+                                return {
 
-                            viewerImage.alt =
-                                image.alt;
+                                    file:
+                                        file,
 
-                            imageViewer.classList.add(
-                                "active"
+                                    color:
+                                        color
+
+                                };
+
+                            }
+                        )
+
+                    );
+
+
+                /*
+                 * =========================
+                 * Sort by color
+                 * =========================
+                 */
+
+                colorSortedImages.sort(
+                    (a, b) => {
+
+                        return (
+                            a.color.hue -
+                            b.color.hue
+                        );
+
+                    }
+                );
+
+
+                /*
+                 * =========================
+                 * Create gallery
+                 * =========================
+                 */
+
+                colorSortedImages.forEach(
+                    item => {
+
+                        const file =
+                            item.file;
+
+
+                        const imageContainer =
+                            document.createElement(
+                                "div"
                             );
 
-                            document.body.style.overflow =
-                                "hidden";
-
-                        }
-                    );
+                        imageContainer.className =
+                            "photo-item";
 
 
-                    imageContainer.appendChild(
-                        image
-                    );
+                        const image =
+                            document.createElement(
+                                "img"
+                            );
 
-                    gallery.appendChild(
-                        imageContainer
-                    );
 
-                });
+                        image.src =
+                            `https://raw.githubusercontent.com/${githubUser}/${githubRepo}/main/${githubPath}/${encodeURIComponent(file.name)}`;
+
+
+                        image.alt =
+                            file.name;
+
+
+                        image.loading =
+                            "lazy";
+
+
+                        /*
+                         * Open image
+                         */
+
+                        imageContainer.addEventListener(
+                            "click",
+                            () => {
+
+                                viewerImage.src =
+                                    image.src;
+
+                                viewerImage.alt =
+                                    image.alt;
+
+                                imageViewer.classList.add(
+                                    "active"
+                                );
+
+                                document.body.style.overflow =
+                                    "hidden";
+
+                            }
+                        );
+
+
+                        imageContainer.appendChild(
+                            image
+                        );
+
+
+                        gallery.appendChild(
+                            imageContainer
+                        );
+
+                    }
+                );
 
             }
 
@@ -435,6 +880,7 @@
                     "Photography gallery error:",
                     error
                 );
+
 
                 gallery.innerHTML = `
                     <p>
@@ -448,7 +894,9 @@
 
 
         /*
+         * =========================
          * Close image viewer
+         * =========================
          */
 
         function closeImageViewer() {
@@ -476,16 +924,17 @@
 
 
         /*
-         * Clicking the dark background closes it.
-         *
-         * Clicking the actual image does not.
+         * Dark background closes viewer
          */
 
         imageViewer.addEventListener(
             "click",
-            (event) => {
+            event => {
 
-                if (event.target === imageViewer) {
+                if (
+                    event.target ===
+                    imageViewer
+                ) {
 
                     closeImageViewer();
 
@@ -496,16 +945,18 @@
 
 
         /*
-         * ESC closes the viewer
+         * ESC closes viewer
          */
 
         document.addEventListener(
             "keydown",
-            (event) => {
+            event => {
 
                 if (
                     event.key === "Escape" &&
-                    imageViewer.classList.contains("active")
+                    imageViewer.classList.contains(
+                        "active"
+                    )
                 ) {
 
                     closeImageViewer();
@@ -526,3 +977,4 @@
 
 </body>
 </html>
+
