@@ -943,7 +943,7 @@ main {
        NAVIGATION
     ---------------------------------------- */
     .column img {
-        width: ;
+        
     }
     nav {
         padding: 1rem;
@@ -1186,18 +1186,7 @@ text-align: center;
         left: 75%;
     }
 }
-.contactArea {
-    color: black;
-        min-height: 60vh;
-    background: #a3bdc7;
-    text-align: center;
-    padding: 0 220px 40px 60px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
+
 /* White navigation on Photography + Contact */
 body.light-navigation .timeline-dot,
 body.light-navigation .timeline-label,

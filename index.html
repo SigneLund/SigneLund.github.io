@@ -23,7 +23,9 @@
     <link rel="stylesheet" href="styles.css">
 
     <style>
-
+        html {
+            background-color: #a3bdc7;
+        }
         /* ============================================================
            WHITE NAVIGATION ON SLIDES 4 AND 5
         ============================================================ */
@@ -102,7 +104,20 @@
         /* =========================
            IMAGE GALLERY
            ========================= */
+        .contact-email {
 
+            font-size: clamp(24px, 4vw, 20px);
+
+            letter-spacing: -.04em;
+
+
+            padding-bottom: 8px;
+
+            transition:
+                color .3s ease,
+                border-color .3s ease;
+
+        }
         .start-gallery {
             
             background: #a3bdc7;
@@ -552,19 +567,19 @@
             <div
                 class="full-page"
                 style="
-                        background-image: url(autocad/big.png);
+                        background-color: #a3bdc7;
     background-size: 178vh auto;
     background-repeat: no-repeat;
     background-position: center;
                 "
             >
-                <div class="interiorPageContainer">
+                <div class="interiorPageContainer" style="background-color: #a3bdc7">
 
 <div
                     class="page-title"
                     style="
                         text-align: left;
-                        color: #92a7af;
+                        color: #533737;
                     "
                 >
                     Interior Design
@@ -608,7 +623,14 @@
 
                 <a href="interiorDesign.html">
 
-                    <button>
+                    <button style="    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 20px;
+    background: #ffffff;
+    color: #000000;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: bold;">
                         See more
                     </button>
 
@@ -689,39 +711,28 @@
 
             <div
                 class="full-page"
-                style="
-                    background: #a3bdc7;
-
-                    background-image:
-                        url('images/photography/Jeannie+Jidam-Cropped---Fotograf Signe Lund Nissen-All copyrightsDSC_0419 copy.jpg');
-
-                    background-size: 206vh auto;
-
-                    background-repeat: no-repeat;
-
-                    background-position: center;
-                "
+                style="background-color: #a3bdc7" 
             >
 
 <div
-    style="
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-    "
+    
 >
     <div
         class="contactArea"
         
     >
-        <div class="page-title" >
-            Contact
+        <div class="page-title" style="font-size: clamp(2rem, 10vw, 7rem);     color: #533737;" >
+            Lets Talk.
         </div>
 
         <div class="page-subtitle" style="text-align: left;">
-            Tlf. +45 30688203 <br>
-            email: signe_nissen@me.com
+            <a class="contact-email reveal" href="tel:+4530688203">Tlf. +45 30688203</a><br>
+                        <a
+                    class="contact-email reveal"
+                    href="mailto:signe_nissen@me.com"
+            >
+                signe_nissen@me.com
+            </a>
         </div>
     </div>
 </div>
@@ -926,8 +937,7 @@
         function updateNavigationColor(index) {
 
             if (
-                index === 3 ||
-                index === 4
+                index === 3
             ) {
 
                 document.body.classList.add(

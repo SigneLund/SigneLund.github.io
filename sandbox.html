@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Portfolio — Creative Practice</title>
+
+    <!-- Model Viewer -->
+    <script
+            type="module"
+            src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
+    </script>
+
+    <style>
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background: #050505;
+        }
+
+        body {
+            background: #050505;
+            color: #f3f1ea;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+            --black: #050505;
+            --off-white: #f3f1ea;
+            --green: #72a85a;
+            --dark-green: #243c27;
+            --grey: #9b9b96;
+            --organge: #c79341;
+            --light-blue: #9cd0d9;
+            --newBateBackground: white;
+            --newPageHoverBackground: rgb(199, 199, 199);
+        }
+
+        .newPageBtn {
+            margin-top: 10px;
+            background: var(--newBateBackground);
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .newPageBtn:hover {
+            background: var(--newPageHoverBackground);
+        }
+        /* =========================================================
+           PAGE
+        ========================================================= */
+
+        .page {
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        /* =========================================================
+           CUSTOM CURSOR
+        ========================================================= */
+
+        .cursor {
+            position: fixed;
+
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            pointer-events: none;
+
+            z-index: 9999;
+
+            transform:
+                translate(-50%, -50%);
+
+            mix-blend-mode: difference;
+
+            transition:
+                width .2s ease,
+                height .2s ease;
+        }
+
+        @media (max-width: 700px) {
+
+            .cursor {
+                display: none;
+            }
+
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        .nav {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            padding: 28px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            z-index: 500;
+
+            mix-blend-mode: difference;
+
+            color: white;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .15em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            opacity: .8;
+            transition: opacity .3s ease;
+        }
+
+        .nav a:hover {
+            opacity: 1;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            position: relative;
+
+            height: 100svh;
+
+            min-height: 620px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+
+        .hero-background {
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle at 50% 40%,
+                    #222a31 0%,
+                    #080908 35%,
+                    #050505 70%
+                );
+        }
+
+
+        /* =========================================================
+           HERO IMAGE
+        ========================================================= */
+
+        .hero-image-wrapper {
+position: absolute;
+    width: min(42vw, 560px);
+    height: min(60vw, 720px);
+    max-height: 75vh;
+    left: 79%;
+    top: 71%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    z-index: 3;
+    clip-path: inset(0 0 0 0);
+
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            filter:
+                grayscale(100%)
+                contrast(1.05);
+
+            transform:
+                scale(1.05);
+
+            transition:
+                transform 1.2s cubic-bezier(.16,1,.3,1);
+        }
+
+        .hero-image-wrapper:hover .hero-image {
+            transform: scale(1.1);
+        }
+
+
+        /* =========================================================
+           HERO TYPOGRAPHY
+        ========================================================= */
+
+        .hero-title {
+
+            position: absolute;
+
+            z-index: 5;
+
+            width: 100%;
+
+            text-align: center;
+
+            font-size: clamp(
+                80px,
+                15vw,
+                230px
+            );
+
+            font-weight: 500;
+
+            letter-spacing: -.07em;
+
+            line-height: .75;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            pointer-events: none;
+
+            mix-blend-mode: difference;
+        }
+
+        .hero-title span {
+            display: block;
+        }
+
+        .hero-title .top {
+            transform: translateX(-8%);
+        }
+
+        .hero-title .bottom {
+            transform: translateX(8%);
+        }
+
+
+        /* =========================================================
+           HERO DESCRIPTION
+        ========================================================= */
+
+        .hero-intro {
+
+            position: absolute;
+
+            left: 40px;
+            bottom: 70px;
+
+            width: 260px;
+
+            z-index: 10;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            color: #d0d0ca;
+        }
+
+        .hero-intro strong {
+            color: white;
+            font-weight: normal;
+        }
+
+
+        .hero-scroll {
+
+            position: absolute;
+
+            right: 40px;
+            bottom: 70px;
+
+            writing-mode:
+                vertical-rl;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .2em;
+
+            color: #aaa;
+
+            z-index: 10;
+        }
+
+
+        /* =========================================================
+           LEAVES
+        ========================================================= */
+
+        .leaf-container {
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 20;
+
+            overflow: hidden;
+        }
+
+        .leaf {
+
+            position: absolute;
+
+            width: 28px;
+            height: 14px;
+
+            background: var(--organge);
+
+            border-radius:
+                100% 0 100% 0;
+
+            opacity: .75;
+
+            transform-origin: center;
+
+            will-change:
+                transform,
+                opacity;
+        }
+
+        .leaf:nth-child(1) {
+            left: 5%;
+            top: -30px;
+            width: 35px;
+            height: 17px;
+        }
+
+        .leaf:nth-child(2) {
+            left: 20%;
+            top: -60px;
+            width: 22px;
+            height: 12px;
+        }
+
+        .leaf:nth-child(3) {
+            left: 38%;
+            top: -40px;
+            width: 32px;
+            height: 16px;
+        }
+
+        .leaf:nth-child(4) {
+            left: 55%;
+            top: -50px;
+            width: 25px;
+            height: 13px;
+        }
+
+        .leaf:nth-child(5) {
+            left: 72%;
+            top: -80px;
+            width: 38px;
+            height: 18px;
+        }
+
+        .leaf:nth-child(6) {
+            left: 90%;
+            top: -20px;
+            width: 23px;
+            height: 12px;
+        }
+
+
+        /* =========================================================
+           SECTION BASE
+        ========================================================= */
+
+        section {
+            position: relative;
+        }
+
+        .section-label {
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .2em;
+
+            color: #777;
+
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+
+            font-size: clamp(
+                60px,
+                11vw,
+                170px
+            );
+
+            line-height: .8;
+
+            letter-spacing: -.07em;
+
+            font-weight: 400;
+        }
+
+
+        /* =========================================================
+           PRODUCTION TECHNOLOGY
+        ========================================================= */
+
+        .production {
+
+            min-height: 125vh;
+
+            background: radial-gradient(circle at center, #3f4647 0%, #222a31 45%, #080b08 100%);
+            position: relative;
+        }
+
+        .production-header {
+
+            padding:
+                clamp(90px, 11vh, 140px) 6vw 45px;
+
+            position: relative;
+
+            z-index: 3;
+        }
+
+        .production-header .section-title {
+
+            max-width: 1100px;
+        }
+
+        .production-header .green {
+
+            color: var(--light-blue);
+
+        }
+
+
+        /* =========================================================
+           CHAIR AREA
+        ========================================================= */
+
+        .model-sticky-area {
+
+            position: sticky;
+
+            top: 0;
+
+            height: 76vh;
+
+            width: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 0 4vw;
+
+            margin-top: -2vh;
+
+            z-index: 2;
+
+            pointer-events: none;
+        }
+
+        model-viewer {
+
+            width: min(82vw, 920px);
+
+            height: min(68vh, 680px);
+
+            aspect-ratio: 4 / 3;
+
+            background: transparent;
+
+            --poster-color: transparent;
+
+            pointer-events: auto;
+
+            display: block;
+        }
+
+
+        /* =========================================================
+           PRODUCTION DESCRIPTION
+        ========================================================= */
+
+        .production-description {
+
+            position: absolute;
+
+            right: 5vw;
+
+            top: 70vh;
+
+            width: 260px;
+
+            z-index: 5;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            color: #aaa;
+        }
+
+        .production-description strong {
+
+            color: white;
+
+            display: block;
+
+            margin-bottom: 10px;
+
+            font-weight: normal;
+
+        }
+
+
+        /* =========================================================
+           INTERIOR
+        ========================================================= */
+
+        .interior {
+
+            min-height: 100vh;
+
+            padding: clamp(90px, 12vh, 140px) 5vw;
+
+            background: #10110f;
+
+            overflow: hidden;
+        }
+
+        .interior-heading {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-end;
+
+            margin-bottom: 100px;
+        }
+
+        .interior-heading .section-title {
+
+            max-width: 850px;
+        }
+
+        .interior-number {
+
+            font-size: 12px;
+
+            color: #777;
+
+            letter-spacing: .15em;
+        }
+
+
+        .interior-image-wrap {
+
+            width: 78%;
+
+            margin-left: 10%;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+        .interior-image {
+
+            width: 100%;
+
+            height: min(62vh, 620px);
+
+            object-fit: cover;
+
+            transform:
+                scale(1.08);
+
+            transition:
+                transform 1.5s cubic-bezier(.16,1,.3,1);
+        }
+
+        .interior-image-wrap:hover .interior-image {
+
+            transform:
+                scale(1.02);
+
+        }
+
+
+        .interior-caption {
+
+            margin-top: 30px;
+
+            margin-left: 10%;
+
+            width: 300px;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+            color: #888;
+
+        }
+
+
+        /* =========================================================
+           PHOTOGRAPHY
+        ========================================================= */
+
+.photography {
+    height: 780px;
+    background-image: url("images/photography/Maja\ Yoghurt---Fotograf\ Signe\ Lund\ Nissen\ All\ CopyrightsDSC00457\ copy.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    min-height: 110vh;
+
+    padding:
+        clamp(90px, 12vh, 140px) 5vw 110px;
+
+    position: relative;
+    overflow: hidden;
+}
+
+
+        .photo-title {
+
+            position: relative;
+
+            z-index: 3;
+
+            font-size: clamp(
+                90px,
+                18vw,
+                300px
+            );
+
+            line-height: .72;
+
+            letter-spacing: -.08em;
+
+            font-weight: 400;
+
+            margin-left: -3vw;
+
+            mix-blend-mode: difference;
+        }
+
+
+        .photo-image-wrapper {
+
+            position: relative;
+
+            width: min(65%, 900px);
+
+            margin:
+                clamp(55px, 8vh, 90px) auto 0;
+
+            z-index: 2;
+
+        }
+
+        .photo-image {
+
+            width: 100%;
+
+            height: min(68vh, 680px);
+
+            object-fit: cover;
+
+            filter:
+                contrast(1.05)
+                saturate(.9);
+
+        }
+
+
+        .photo-description {
+
+            position: absolute;
+
+            right: 5vw;
+
+            bottom: 180px;
+
+            width: 220px;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            color: #888;
+
+            z-index: 4;
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact {
+
+            min-height: 90vh;
+
+            padding:
+                clamp(90px, 12vh, 140px) 5vw 60px;
+
+            background: radial-gradient(circle at 50% 100%, #292f39, #050505 55%);
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+
+        }
+
+        .contact-title {
+
+            font-size: clamp(
+                100px,
+                20vw,
+                330px
+            );
+
+            line-height: .7;
+
+            letter-spacing: -.09em;
+
+            font-weight: 400;
+
+            color: var(--light-blue);
+
+        }
+
+
+        .contact-bottom {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-end;
+
+            padding-top: 120px;
+
+        }
+
+        .contact-text {
+
+            max-width: 400px;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            color: #aaa;
+
+        }
+
+        .contact-email {
+
+            font-size: clamp(
+                24px,
+                4vw,
+                55px
+            );
+
+            letter-spacing: -.04em;
+
+            border-bottom:
+                1px solid #444;
+
+            padding-bottom: 8px;
+
+            transition:
+                color .3s ease,
+                border-color .3s ease;
+
+        }
+
+        .contact-email:hover {
+
+            color: var(--green);
+
+            border-color:
+                var(--green);
+
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding:
+                30px 0 0;
+
+            font-size: 10px;
+
+            color: #555;
+
+            text-transform: uppercase;
+
+            letter-spacing: .15em;
+
+        }
+
+
+        /* =========================================================
+           REVEAL ANIMATIONS
+        ========================================================= */
+
+        .reveal {
+
+            opacity: 0;
+
+            transform:
+                translateY(80px);
+
+            transition:
+                opacity 1s cubic-bezier(.16,1,.3,1),
+                transform 1.2s cubic-bezier(.16,1,.3,1);
+
+        }
+
+        .reveal.visible {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 800px) {
+
+            .nav {
+
+                padding:
+                    17px 15px;
+
+                font-size: 10px;
+
+            }
+
+            .nav-links {
+
+                gap: 12px;
+
+                max-width: 72vw;
+
+                overflow-x: auto;
+
+                scrollbar-width: none;
+
+                white-space: nowrap;
+
+            }
+
+            .nav-links::-webkit-scrollbar {
+
+                display: none;
+
+            }
+
+            .hero {
+
+                height: 100svh;
+
+                min-height: 650px;
+
+            }
+
+            .hero-image-wrapper {
+
+                width: 90vw;
+
+                height: 70vh;
+
+            }
+
+            .hero-intro {
+
+                left: 20px;
+
+                bottom: 35px;
+
+                width: 200px;
+
+            }
+
+            .hero-scroll {
+
+                right: 20px;
+
+                bottom: 35px;
+
+            }
+
+
+            .production {
+
+                min-height: 112vh;
+
+            }
+
+            .production-header {
+
+                padding:
+                    85px 20px 25px;
+
+            }
+
+            .model-sticky-area {
+
+                position: relative;
+
+                top: auto;
+
+                height: 58svh;
+
+                min-height: 360px;
+
+                margin-top: 0;
+
+                padding: 0 10px;
+
+                align-items: center;
+
+            }
+
+            model-viewer {
+
+                width: 100%;
+
+                height: min(56svh, 520px);
+
+                max-height: 520px;
+
+                aspect-ratio: 1 / 1;
+
+            }
+
+            .production-description {
+
+                position: relative;
+
+                top: auto;
+
+                right: auto;
+
+                bottom: auto;
+
+                width: auto;
+
+                margin: 0 20px 35px;
+
+            }
+
+
+            .interior {
+
+                min-height: auto;
+
+                padding:
+                    85px 20px 90px;
+
+            }
+
+            .interior-heading {
+
+                display: block;
+
+                margin-bottom: 60px;
+
+            }
+
+            .interior-number {
+
+                display: block;
+
+                margin-top: 30px;
+
+            }
+
+            .interior-image-wrap {
+
+                width: 100%;
+
+                margin-left: 0;
+
+            }
+
+            .interior-image {
+
+                height: 55svh;
+
+                min-height: 320px;
+
+            }
+
+            .interior-caption {
+
+                margin-left: 0;
+
+            }
+
+
+            .photography {
+
+                min-height: auto;
+
+                padding:
+                    85px 20px 100px;
+
+            }
+
+            .photo-title {
+
+                font-size:
+                    25vw;
+
+            }
+
+            .photo-image-wrapper {
+
+                width: 100%;
+
+                margin-top: 55px;
+
+            }
+
+            .photo-image {
+                
+                height: 58svh;
+
+                min-height: 320px;
+
+            }
+
+            .photo-description {
+
+                position: relative;
+
+                right: auto;
+
+                bottom: auto;
+
+                margin-top: 30px;
+
+            }
+
+
+            .contact {
+
+                min-height: 82svh;
+
+                padding:
+                    85px 20px 35px;
+
+            }
+
+            .contact-bottom {
+
+                display: block;
+
+                padding-top: 100px;
+
+            }
+
+            .contact-email {
+
+                display: inline-block;
+
+                margin-top: 60px;
+
+            }
+
+            footer {
+
+                margin-top: 65px;
+
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .hero-title {
+                font-size: 12vw;
+                line-height: .82;
+            }
+
+            .hero-image-wrapper {
+                width: 72vw;
+                height: 58svh;
+            }
+
+            .hero-intro {
+                width: 170px;
+                font-size: 11px;
+            }
+
+            .hero-scroll {
+                font-size: 8px;
+            }
+
+            .section-title {
+                font-size: 17vw;
+            }
+
+            .photo-title {
+                font-size: 24vw;
+            }
+
+            .contact-title {
+                font-size: 25vw;
+            }
+
+            .model-sticky-area {
+                height: 54svh;
+                min-height: 330px;
+            }
+
+            model-viewer {
+                height: 52svh;
+                min-height: 320px;
+            }
+
+            .production-description {
+                font-size: 12px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- =========================================================
+         CURSOR
+    ========================================================== -->
+
+    <div class="cursor" id="cursor"></div>
+
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <nav class="nav">
+
+        <a href="#top">
+            S
+        </a>
+
+        <div class="nav-links">
+
+            <a href="#production">
+                Production
+            </a>
+
+            <a href="#interior">
+                Interior
+            </a>
+
+            <a href="#photography">
+                Photography
+            </a>
+
+            <a href="#contact">
+                Contact
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================================================
+         FALLING LEAVES
+    ========================================================== -->
+
+    <div class="leaf-container">
+
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+
+    </div>
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================== -->
+
+    <section class="hero" id="top">
+
+        <div class="hero-background"></div>
+
+
+        <!--
+            CHANGE THIS IMAGE
+            to your portrait
+        -->
+
+        <div class="hero-image-wrapper">
+
+            <img
+                    class="hero-image"
+                    src="images/photography/headNBG.png"
+                    alt="Portrait"
+            >
+
+        </div>
+
+
+        <h1 class="hero-title">
+
+            <span class="top">
+                SIGNE LUND
+            </span>
+
+            <span class="bottom">
+                NISSEN
+            </span>
+
+        </h1>
+
+
+        <div class="hero-intro">
+
+            <strong>
+                Design · Technology · Image
+            </strong>
+
+            <br><br>
+
+            A multidisciplinary practice
+            exploring objects, spaces,
+            technology and visual storytelling.
+
+        </div>
+
+
+        <div class="hero-scroll">
+
+            Scroll to explore ↓
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         PRODUCTION TECHNOLOGY
+    ========================================================== -->
+
+    <section
+            class="production"
+            id="production"
+    >
+
+        <div class="production-header">
+
+            <div class="section-label">
+                01 — Production
+            </div>
+
+            <h2 class="section-title reveal">
+
+                Production
+                <span class="green">
+                    Technology
+                </span>
+
+            </h2>
+
+        </div>
+
+
+        <!-- YOUR 3D CHAIR -->
+
+        <div class="model-sticky-area">
+
+            <model-viewer
+                    id="mainModel"
+                    src="models/ASS-CASE1.glb"
+
+                    camera-controls
+                    disable-zoom
+
+                    auto-rotate
+                    rotation-per-second="2deg"
+
+                    camera-orbit="135deg 75deg 105%"
+
+                    shadow-intensity="1.5"
+
+                    exposure="0.4"
+
+                    ar
+
+                    interaction-prompt="none"
+
+                    alt="3D model"
+            >
+            </model-viewer>
+
+        </div>
+
+
+        <div class="production-description reveal">
+
+                        <strong>SolidWorks</strong>
+                        used for assignments and exams at
+                        <strong>Erhvervsakademi København</strong>
+
+                        <br><br>
+
+                        Turning innovative ideas and reinvented products
+                        into accurate, manufacturable designs.
+
+                        <br><br>
+
+                        Using SOLIDWORKS to create 3D models,
+                        assemblies, prototypes, and detailed product
+                        documentation, including 3D printing and
+                        production-ready designs.
+
+                        <br><br>
+
+                        Faster development, easier identification of
+                        design improvements, and accurate documentation
+                        that supports reproduction and mass production.
+
+                        <br>
+                    <a href="productTechnology.html">
+
+                        <button class="newPageBtn"
+                        >
+                            See more
+                        </button>
+
+                    </a>
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         INTERIOR DESIGN
+    ========================================================== -->
+
+    <section
+            class="interior"
+            id="interior"
+    >
+
+        <div class="interior-heading">
+
+            <div>
+
+                <div class="section-label">
+                    02 — Space
+                </div>
+
+                <h2 class="section-title reveal">
+
+                    Interior
+                    <br>
+                    Design
+
+                </h2>
+
+            </div>
+
+            <div class="interior-number">
+                01 / 03
+            </div>
+
+        </div>
+
+
+        <!--
+            CHANGE THIS IMAGE
+        -->
+
+        <div class="interior-image-wrap reveal">
+
+            <img
+                    class="interior-image"
+                    src="images/interior.jpg"
+                    alt="Interior design"
+            >
+
+        </div>
+
+
+        <div class="interior-caption reveal">
+
+            Interior design exploring
+            material, atmosphere, scale
+            and the relationship between
+            objects and architecture.
+
+                        <br>
+                    <a href="productTechnology.html">
+
+                        <button class="newPageBtn"
+                        >
+                            See more
+                        </button>
+
+                    </a>
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         PHOTOGRAPHY
+    ========================================================== -->
+
+    <section
+            class="photography"
+            id="photography"
+    >
+
+        <div class="section-label">
+            03 — Photography
+        </div>
+
+
+        <h2 class="photo-title">
+
+            Photo
+            <br>
+            graphy
+
+        </h2>
+
+
+
+
+
+        <div class="photo-description reveal">
+
+            <strong>
+                Photography
+            </strong>
+
+            Selected photographic work
+            exploring composition,
+            people, objects and
+            everyday visual moments.
+            <br>
+                    <a href="productTechnology.html">
+
+                        <button class="newPageBtn"
+                        >
+                            See more
+                        </button>
+
+                    </a>
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         CONTACT
+    ========================================================== -->
+
+    <section
+            class="contact"
+            id="contact"
+    >
+
+        <div>
+
+            <div class="section-label">
+                04 — Contact
+            </div>
+
+            <h2 class="contact-title reveal">
+                Let's
+                <br>
+                Talk.
+            </h2>
+
+        </div>
+
+
+        <div class="contact-bottom">
+
+            <div class="contact-text reveal">
+
+                Interested in working together,
+                discussing a project, or simply
+                exploring an idea?
+
+                <br><br>
+
+                Get in touch.
+
+            </div>
+
+
+            <!-- CHANGE EMAIL -->
+
+            <a
+                    class="contact-email reveal"
+                    href="mailto:signe_nissen@me.com"
+            >
+                signe_nissen@me.com
+            </a>
+
+        </div>
+
+
+        <footer>
+
+            <span>
+                Portfolio
+            </span>
+
+            <span>
+                © 2026
+            </span>
+
+            <span>
+                Copenhagen
+            </span>
+
+        </footer>
+
+    </section>
+
+</div>
+
+
+
+<script>
+
+    /* =========================================================
+       CURSOR
+    ========================================================== */
+
+    const cursor =
+        document.getElementById("cursor");
+
+    document.addEventListener(
+        "mousemove",
+        (event) => {
+
+            cursor.style.left =
+                event.clientX + "px";
+
+            cursor.style.top =
+                event.clientY + "px";
+
+        }
+    );
+
+
+    /* =========================================================
+       SCROLL STATE
+    ========================================================== */
+
+    let scrollY = window.scrollY;
+
+    let targetScroll = window.scrollY;
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            targetScroll =
+                window.scrollY;
+
+        },
+        { passive: true }
+    );
+
+
+    /* =========================================================
+       HERO PARALLAX
+    ========================================================== */
+
+    const heroImage =
+        document.querySelector(
+            ".hero-image-wrapper"
+        );
+
+    const heroTitle =
+        document.querySelector(
+            ".hero-title"
+        );
+
+    const heroIntro =
+        document.querySelector(
+            ".hero-intro"
+        );
+
+
+    /* =========================================================
+       LEAVES
+    ========================================================== */
+
+    const leaves =
+        document.querySelectorAll(
+            ".leaf"
+        );
+
+
+    const leafData = [];
+
+
+    leaves.forEach(
+        (leaf, index) => {
+
+            leafData.push({
+
+                speed:
+                    0.25 +
+                    Math.random() * 0.45,
+
+                rotation:
+                    Math.random() * 360,
+
+                drift:
+                    50 +
+                    Math.random() * 100,
+
+                offset:
+                    Math.random() * 1000,
+
+                direction:
+                    index % 2 === 0
+                        ? 1
+                        : -1
+
+            });
+
+        }
+    );
+
+
+    /* =========================================================
+       ANIMATION LOOP
+    ========================================================== */
+
+    function animate() {
+
+        scrollY +=
+            (targetScroll - scrollY)
+            * 0.08;
+
+
+        /* -------------------------
+           HERO
+        ------------------------- */
+
+        const heroProgress =
+            Math.min(
+                scrollY /
+                window.innerHeight,
+                1
+            );
+
+
+        //if (heroImage) {
+
+           // heroImage.style.transform = `
+           //     translateY(${heroProgress * 180}px)
+           //     scale(${1.05 + heroProgress * .08})
+           // `;
+
+        //}
+
+
+        if (heroTitle) {
+
+            heroTitle.style.transform = `
+                translateY(
+                    ${-50 + heroProgress * 35}%
+                )
+                scale(
+                    ${1 + heroProgress * .12}
+                )
+            `;
+
+            heroTitle.style.opacity =
+                1 - heroProgress * .9;
+
+        }
+
+
+        if (heroIntro) {
+
+            heroIntro.style.transform = `
+                translateY(
+                    ${heroProgress * 100}px
+                )
+            `;
+
+            heroIntro.style.opacity =
+                1 - heroProgress;
+
+        }
+
+
+        /* -------------------------
+           FALLING LEAVES
+        ------------------------- */
+
+        leaves.forEach(
+            (leaf, index) => {
+
+                const data =
+                    leafData[index];
+
+                const fall =
+                    (
+                        scrollY *
+                        data.speed
+                        +
+                        data.offset
+                    ) % (
+                        window.innerHeight + 250
+                    );
+
+                const x =
+                    Math.sin(
+                        scrollY * .003 +
+                        data.offset
+                    ) *
+                    data.drift *
+                    data.direction;
+
+                const rotation =
+                    data.rotation +
+                    scrollY * .35 *
+                    data.direction;
+
+
+                leaf.style.transform = `
+                    translate3d(
+                        ${x}px,
+                        ${fall}px,
+                        0
+                    )
+                    rotate(${rotation}deg)
+                `;
+
+
+                const opacity =
+                    Math.min(
+                        1,
+                        Math.max(
+                            0,
+                            fall / 80
+                        )
+                    );
+
+
+                leaf.style.opacity =
+                    opacity * .8;
+
+            }
+        );
+
+
+        /* -------------------------
+           CONTINUE
+        ------------------------- */
+
+        requestAnimationFrame(
+            animate
+        );
+
+    }
+
+
+    animate();
+
+
+
+    /* =========================================================
+       INTERSECTION REVEALS
+    ========================================================== */
+
+    const revealElements =
+        document.querySelectorAll(
+            ".reveal"
+        );
+
+
+    const observer =
+        new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach(
+                    entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target
+                                .classList
+                                .add("visible");
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: .12
+            }
+        );
+
+
+    revealElements.forEach(
+        element => {
+
+            observer.observe(
+                element
+            );
+
+        }
+    );
+
+
+
+    /* =========================================================
+       MODEL VIEWER
+    ========================================================== */
+
+    const model =
+        document.getElementById(
+            "mainModel"
+        );
+
+
+    /*
+       Slightly change the camera as
+       the user scrolls through the
+       Production section.
+    */
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (!model)
+                return;
+
+
+            const production =
+                document.querySelector(
+                    ".production"
+                );
+
+
+            const rect =
+                production.getBoundingClientRect();
+
+
+            const progress =
+                Math.max(
+                    0,
+                    Math.min(
+                        1,
+                        -rect.top /
+                        (
+                            rect.height -
+                            window.innerHeight
+                        )
+                    )
+                );
+
+
+            /*
+               Very subtle camera
+               movement.
+            */
+
+            const mobile =
+                window.innerWidth <= 800;
+
+            const baseDistance =
+                mobile ? 115 : 105;
+
+            const elevation =
+                (mobile ? 72 : 75) -
+                progress * (mobile ? 6 : 12);
+
+            const distance =
+                baseDistance -
+                progress * (mobile ? 4 : 8);
+
+            model.cameraOrbit =
+                `135deg ${elevation}deg ${distance}%`;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+
+    /* =========================================================
+       RESPONSIVE 3D FRAMING
+    ========================================================== */
+
+    function fitModelToViewport() {
+
+        if (!model)
+            return;
+
+        const mobile = window.innerWidth <= 800;
+        const tablet = window.innerWidth <= 1100;
+
+        if (mobile) {
+
+            model.cameraOrbit = "135deg 72deg 115%";
+            model.fieldOfView = "32deg";
+
+        } else if (tablet) {
+
+            model.cameraOrbit = "135deg 74deg 108%";
+            model.fieldOfView = "28deg";
+
+        } else {
+
+            model.cameraOrbit = "135deg 75deg 105%";
+            model.fieldOfView = "24deg";
+
+        }
+    }
+
+    window.addEventListener("resize", fitModelToViewport);
+    fitModelToViewport();
+
+
+    /* =========================================================
+       IMAGE PARALLAX
+    ========================================================== */
+
+    const parallaxImages =
+        document.querySelectorAll(
+            ".interior-image, .photo-image"
+        );
+
+
+    function updateParallax() {
+
+        parallaxImages.forEach(
+            image => {
+
+                const rect =
+                    image.getBoundingClientRect();
+
+
+                const center =
+                    window.innerHeight / 2;
+
+
+                const distance =
+                    (
+                        rect.top +
+                        rect.height / 2 -
+                        center
+                    );
+
+
+                const movement =
+                    distance * -0.04;
+
+
+                image.style.transform =
+                    `translateY(${movement}px) scale(1.04)`;
+
+            }
+        );
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        updateParallax,
+        {
+            passive: true
+        }
+    );
+
+
+    updateParallax();
+
+
+</script>
+
+</body>
+</html>
